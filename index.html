@@ -2,31 +2,44 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#101827">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111827">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="T3P PM">
-<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-<title>T3P — Police Municipale</title>
+<title>Contrôle T3P — Police Municipale</title>
 
 <style>
 :root{
-  --bg:#f2f4f7;
+  --bg:#f4f5f7;
   --card:#ffffff;
-  --text:#17202a;
-  --muted:#697586;
-  --border:#d9dee5;
-  --nav:#101827;
-  --nav2:#182338;
-  --blue:#236b9e;
-  --green:#2f7657;
-  --orange:#b56b00;
-  --red:#a83e43;
-  --purple:#7354a6;
-  --shadow:0 2px 8px rgba(0,0,0,.08);
-  --radius:14px;
+  --text:#111827;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --accent:#1d4ed8;
+  --accent2:#2563eb;
+  --danger:#dc2626;
+  --warning:#d97706;
+  --success:#15803d;
+  --nav:#ffffff;
+  --shadow:0 4px 18px rgba(0,0,0,.08);
+  --radius:16px;
+}
+
+[data-theme="dark"]{
+  --bg:#0b0f14;
+  --card:#151a21;
+  --text:#f3f4f6;
+  --muted:#9ca3af;
+  --border:#29313d;
+  --accent:#60a5fa;
+  --accent2:#3b82f6;
+  --danger:#f87171;
+  --warning:#f59e0b;
+  --success:#4ade80;
+  --nav:#11161d;
+  --shadow:0 4px 20px rgba(0,0,0,.35);
 }
 
 *{
@@ -34,19 +47,21 @@
   -webkit-tap-highlight-color:transparent;
 }
 
-html,body{
-  margin:0;
-  padding:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+html{
+  scroll-behavior:smooth;
 }
 
 body{
-  min-height:100vh;
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  line-height:1.45;
 }
 
-button,input,select,textarea{
+button,
+input,
+select{
   font:inherit;
 }
 
@@ -57,53 +72,49 @@ button{
 .app-header{
   position:sticky;
   top:0;
-  z-index:100;
+  z-index:50;
   background:var(--nav);
-  color:white;
+  border-bottom:1px solid var(--border);
   padding:
-    calc(9px + env(safe-area-inset-top))
-    12px
+    max(10px,env(safe-area-inset-top))
+    14px
     10px;
-  box-shadow:0 2px 10px rgba(0,0,0,.25);
+  backdrop-filter:blur(14px);
 }
 
 .header-row{
   display:flex;
   align-items:center;
-  gap:9px;
+  justify-content:space-between;
+  gap:10px;
 }
 
-.header-button{
-  border:0;
-  background:rgba(255,255,255,.1);
-  color:white;
-  width:40px;
-  height:40px;
-  border-radius:11px;
+.brand{
+  font-weight:800;
+  font-size:17px;
+}
+
+.brand small{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:500;
+}
+
+.icon-btn{
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  border-radius:12px;
+  min-width:42px;
+  height:42px;
   font-size:19px;
 }
 
-.header-title{
-  flex:1;
-}
-
-.header-title strong{
-  display:block;
-  font-size:16px;
-}
-
-.header-title span{
-  display:block;
-  font-size:10px;
-  opacity:.7;
-  margin-top:2px;
-}
-
 main{
-  width:100%;
-  max-width:900px;
-  margin:0 auto;
-  padding:14px 13px 35px;
+  max-width:760px;
+  margin:auto;
+  padding:14px 14px 90px;
 }
 
 .view{
@@ -112,536 +123,476 @@ main{
 
 .view.active{
   display:block;
+  animation:fade .16s ease;
 }
 
-h1,h2,h3{
-  margin-top:0;
+@keyframes fade{
+  from{opacity:0;transform:translateY(3px)}
+  to{opacity:1;transform:none}
+}
+
+h1{
+  font-size:26px;
+  margin:8px 0 6px;
 }
 
 h2{
-  font-size:23px;
-  margin-bottom:12px;
+  font-size:21px;
+  margin:8px 0 14px;
 }
 
 h3{
   font-size:17px;
-  margin-bottom:7px;
+  margin:4px 0 8px;
 }
 
 p{
-  line-height:1.5;
+  margin:6px 0 12px;
 }
 
 .muted{
   color:var(--muted);
 }
 
-.small{
-  font-size:12px;
-}
-
-.search-box{
+.search{
   width:100%;
+  padding:14px 15px;
+  border-radius:14px;
   border:1px solid var(--border);
   background:var(--card);
   color:var(--text);
-  border-radius:13px;
-  padding:13px 14px;
   outline:none;
-  margin-bottom:11px;
-  box-shadow:var(--shadow);
+  margin:12px 0;
 }
 
-.search-box:focus{
-  border-color:var(--blue);
-}
-
-.home-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;
-}
-
-@media(min-width:700px){
-  .home-grid{
-    grid-template-columns:repeat(3,minmax(0,1fr));
-  }
-}
-
-.menu-card{
-  border:1px solid var(--border);
-  background:var(--card);
-  border-radius:var(--radius);
-  padding:14px;
-  min-height:105px;
-  text-align:left;
-  box-shadow:var(--shadow);
-  color:var(--text);
-}
-
-.menu-card:active{
-  transform:scale(.985);
-}
-
-.menu-icon{
-  font-size:25px;
-}
-
-.menu-card strong{
-  display:block;
-  margin-top:7px;
-  font-size:15px;
-}
-
-.menu-card small{
-  display:block;
-  margin-top:5px;
-  line-height:1.3;
-  color:var(--muted);
-}
-
-.back-button{
-  border:1px solid var(--border);
-  background:var(--card);
-  color:var(--text);
-  padding:9px 12px;
-  border-radius:10px;
-  margin-bottom:10px;
-}
-
-.top-actions{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-bottom:12px;
-}
-
-.action-button{
-  border:1px solid var(--border);
-  background:var(--card);
-  color:var(--text);
-  border-radius:10px;
-  padding:9px 12px;
-}
-
-.primary{
-  background:var(--blue);
-  border-color:var(--blue);
-  color:white;
-}
-
-.green{
-  background:var(--green);
-  border-color:var(--green);
-  color:white;
-}
-
-.warning{
-  background:#fff4df;
-  border:1px solid #ead0a0;
-  color:#754800;
-}
-
-.danger{
-  background:#fff0f0;
-  border:1px solid #e0b5b5;
-  color:#7d262a;
-}
-
-.info{
-  background:#edf6fc;
-  border:1px solid #c9deed;
-  color:#234e6a;
+.search:focus{
+  border-color:var(--accent);
 }
 
 .card{
   background:var(--card);
   border:1px solid var(--border);
   border-radius:var(--radius);
-  margin:10px 0;
+  padding:16px;
+  margin:12px 0;
   box-shadow:var(--shadow);
-  overflow:hidden;
 }
 
-.card-header{
-  padding:14px;
-  font-weight:700;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
   gap:10px;
 }
 
-.card-body{
-  padding:0 14px 14px;
-  line-height:1.5;
+@media(max-width:430px){
+  .grid{
+    grid-template-columns:1fr;
+  }
 }
 
-details.card summary{
-  list-style:none;
+.big-button{
+  width:100%;
+  min-height:64px;
+  border:0;
+  border-radius:17px;
+  background:var(--accent);
+  color:white;
+  font-weight:800;
+  font-size:17px;
   padding:14px;
-  font-weight:700;
-  cursor:pointer;
+  box-shadow:var(--shadow);
 }
 
-details.card summary::-webkit-details-marker{
+.prof-button{
+  width:100%;
+  min-height:76px;
+  border:1px solid var(--border);
+  border-radius:17px;
+  background:var(--card);
+  color:var(--text);
+  padding:14px;
+  text-align:left;
+  font-weight:800;
+  box-shadow:var(--shadow);
+}
+
+.prof-button span{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin-top:3px;
+  font-weight:500;
+}
+
+.menu-button{
+  width:100%;
+  text-align:left;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  padding:14px;
+  border-radius:14px;
+  margin:5px 0;
+}
+
+.back{
+  border:0;
+  background:transparent;
+  color:var(--accent);
+  padding:7px 0;
+  font-weight:700;
+  font-size:15px;
+}
+
+.section-title{
+  margin-top:20px;
+  margin-bottom:8px;
+  font-weight:800;
+}
+
+.notice{
+  border-left:4px solid var(--warning);
+  background:rgba(217,119,6,.09);
+  padding:12px;
+  border-radius:10px;
+  margin:12px 0;
+}
+
+.danger{
+  border-left:4px solid var(--danger);
+  background:rgba(220,38,38,.09);
+}
+
+.success{
+  border-left:4px solid var(--success);
+  background:rgba(21,128,61,.09);
+}
+
+.link{
+  color:var(--accent);
+  text-decoration:none;
+  font-weight:700;
+}
+
+.footer-nav{
+  position:fixed;
+  z-index:60;
+  left:0;
+  right:0;
+  bottom:0;
+  background:var(--nav);
+  border-top:1px solid var(--border);
+  padding:
+    8px
+    10px
+    max(8px,env(safe-area-inset-bottom));
+  display:flex;
+  justify-content:center;
+}
+
+.footer-nav button{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  font-weight:700;
+  padding:8px 12px;
+}
+
+/* CONTRÔLE */
+
+.step{
   display:none;
 }
 
-details.card summary:after{
-  content:"+";
-  float:right;
-  color:var(--muted);
-  font-size:18px;
+.step.active{
+  display:block;
 }
 
-details.card[open] summary:after{
-  content:"−";
+.type-choice{
+  display:grid;
+  gap:10px;
 }
 
-.profession-title{
-  display:flex;
-  align-items:center;
-  gap:9px;
+.type-choice button{
+  padding:16px;
+  border-radius:15px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  text-align:left;
+  font-weight:800;
 }
 
-.taxi-border{
-  border-left:5px solid #444;
-}
-
-.vtc-border{
-  border-left:5px solid var(--red);
-}
-
-.loti-border{
-  border-left:5px solid var(--purple);
-}
-
-.vmdtr-border{
-  border-left:5px solid var(--blue);
+.type-choice button.selected{
+  border:2px solid var(--accent);
+  background:rgba(37,99,235,.10);
 }
 
 .status-row{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin:8px 0;
-}
-
-@media(min-width:650px){
-  .status-row{
-    grid-template-columns:repeat(4,1fr);
-  }
-}
-
-.status-button{
-  border:1px solid var(--border);
-  background:#fff;
-  color:var(--text);
-  border-radius:10px;
-  padding:9px 5px;
-  font-size:13px;
-}
-
-.status-button.active-conforme{
-  background:#e9f6ef;
-  border-color:#76b793;
-  color:#1f6242;
-}
-
-.status-button.active-absent{
-  background:#fff2df;
-  border-color:#e3b76d;
-  color:#7d5000;
-}
-
-.status-button.active-nonconforme{
-  background:#ffebeb;
-  border-color:#d89393;
-  color:#81292e;
-}
-
-.status-button.active-doute{
-  background:#edf2f8;
-  border-color:#aab9c9;
-  color:#34495e;
-}
-
-.document-row{
-  border-top:1px solid var(--border);
-  padding:13px 0;
-}
-
-.document-row:first-child{
-  border-top:0;
-}
-
-.document-name{
-  font-weight:700;
-  font-size:14px;
-}
-
-.document-help{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:3px;
-}
-
-.document-buttons{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:5px;
-  margin-top:8px;
-}
-
-.document-buttons button{
-  border:1px solid var(--border);
-  background:#fafafa;
-  border-radius:8px;
-  padding:7px 3px;
-  font-size:11px;
-}
-
-.check-summary{
+  gap:7px;
   margin-top:10px;
 }
 
-.result{
-  padding:13px;
+.status-btn{
+  border:2px solid var(--border);
+  background:var(--card);
+  color:var(--text);
   border-radius:12px;
-  margin:8px 0;
-  border:1px solid var(--border);
-  background:#fff;
-}
-
-.result h3{
-  margin-bottom:4px;
-}
-
-.natinf{
+  padding:10px 7px;
+  font-size:13px;
   font-weight:800;
+  transition:.12s;
+}
+
+.status-btn.selected.conforme{
+  background:#15803d;
+  border-color:#15803d;
+  color:white;
+}
+
+.status-btn.selected.nonconforme{
+  background:#dc2626;
+  border-color:#dc2626;
+  color:white;
+}
+
+.status-btn.selected.nonpresente{
+  background:#d97706;
+  border-color:#d97706;
+  color:white;
+}
+
+.status-btn.selected.na{
+  background:#6b7280;
+  border-color:#6b7280;
+  color:white;
+}
+
+.check-item{
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:var(--card);
+  padding:13px;
+  margin:10px 0;
+}
+
+.check-item.has-status-conforme{
+  border-left:5px solid var(--success);
+}
+
+.check-item.has-status-nonconforme{
+  border-left:5px solid var(--danger);
+}
+
+.check-item.has-status-nonpresente{
+  border-left:5px solid var(--warning);
+}
+
+.check-item.has-status-na{
+  border-left:5px solid var(--muted);
+}
+
+.item-title{
+  font-weight:800;
+}
+
+.item-help{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:3px;
+}
+
+.control-progress{
+  height:7px;
+  background:var(--border);
+  border-radius:99px;
+  overflow:hidden;
+  margin:12px 0 18px;
+}
+
+.control-progress span{
+  display:block;
+  height:100%;
+  background:var(--accent);
+  width:0;
+  transition:.2s;
+}
+
+.primary{
+  width:100%;
+  border:0;
+  border-radius:15px;
+  padding:15px;
+  background:var(--accent);
+  color:white;
+  font-weight:800;
+  margin-top:12px;
+}
+
+.secondary{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:14px;
+  background:var(--card);
+  color:var(--text);
+  font-weight:800;
+  margin-top:9px;
+}
+
+.infra{
+  border-left:5px solid var(--danger);
+  padding:13px;
+  background:var(--card);
+  border-radius:12px;
+  margin:10px 0;
+}
+
+.infra strong{
+  display:block;
 }
 
 .badge{
   display:inline-block;
-  padding:3px 7px;
-  border-radius:999px;
-  background:#edf0f3;
-  color:#52606d;
+  padding:4px 8px;
+  border-radius:99px;
+  background:var(--border);
+  color:var(--text);
   font-size:11px;
+  font-weight:800;
   margin:2px;
 }
 
-.favorite{
-  color:#b37a00;
-}
+/* DOCUMENTS */
 
-.image-card{
+.document-card{
   border:1px solid var(--border);
   background:var(--card);
-  border-radius:14px;
-  overflow:hidden;
+  border-radius:15px;
+  padding:12px;
   margin:10px 0;
-  box-shadow:var(--shadow);
 }
 
-.image-card img{
+.document-card img{
   width:100%;
-  display:block;
-  min-height:130px;
+  max-height:190px;
   object-fit:contain;
-  background:#eef1f4;
-  cursor:pointer;
-}
-
-.image-caption{
-  padding:11px 13px;
-}
-
-.image-caption strong{
+  border-radius:10px;
+  background:var(--bg);
   display:block;
+  margin:8px 0;
 }
 
-.image-caption small{
-  display:block;
-  color:var(--muted);
-  margin-top:4px;
-  line-height:1.35;
+.document-card img.missing{
+  min-height:110px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  object-fit:contain;
 }
 
 .modal{
   display:none;
   position:fixed;
   inset:0;
-  z-index:500;
-  background:rgba(0,0,0,.92);
+  z-index:200;
+  background:rgba(0,0,0,.94);
   align-items:center;
   justify-content:center;
-  padding:15px;
+  padding:20px;
 }
 
 .modal.active{
   display:flex;
 }
 
-.modal-content{
-  width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-}
-
-.modal-image{
+.modal img{
   max-width:100%;
-  max-height:90%;
+  max-height:88vh;
   object-fit:contain;
-  touch-action:pinch-zoom;
+  transform-origin:center;
 }
 
 .modal-close{
   position:absolute;
-  right:5px;
-  top:5px;
-  width:44px;
-  height:44px;
+  right:15px;
+  top:15px;
+  z-index:3;
+  width:46px;
+  height:46px;
   border:0;
   border-radius:50%;
-  background:#ffffff22;
-  color:#fff;
+  background:white;
+  color:#111;
   font-size:25px;
 }
 
-.points{
-  margin-top:8px;
+.zoom-controls{
+  position:absolute;
+  bottom:25px;
+  display:flex;
+  gap:10px;
 }
 
-.points li{
-  margin:5px 0;
-}
-
-.favorite-button{
+.zoom-controls button{
+  width:48px;
+  height:48px;
   border:0;
-  background:transparent;
-  font-size:21px;
+  border-radius:50%;
+  background:white;
+  color:#111;
+  font-size:22px;
 }
 
-.footer{
-  text-align:center;
-  color:var(--muted);
-  font-size:11px;
-  padding:25px 0 45px;
+/* NATINF */
+
+.natinf-search{
+  margin-bottom:12px;
 }
 
-.night{
-  --bg:#090d13;
-  --card:#121923;
-  --text:#edf2f7;
-  --muted:#aeb9c5;
-  --border:#2a3543;
-  --nav:#05080d;
-  --nav2:#0b111a;
-  --shadow:0 2px 9px rgba(0,0,0,.35);
+.natinf-item{
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:var(--card);
+  padding:13px;
+  margin:9px 0;
 }
 
-.night .status-button{
-  background:#151d27;
-  color:var(--text);
-}
-
-.night .document-buttons button{
-  background:#151d27;
-  color:var(--text);
-}
-
-.night .warning{
-  background:#302514;
-  color:#f0ca85;
-  border-color:#614b27;
-}
-
-.night .danger{
-  background:#301719;
-  color:#f0aaaa;
-  border-color:#663437;
-}
-
-.night .info{
-  background:#132433;
-  color:#a9d4f0;
-  border-color:#29485f;
-}
-
-.night .badge{
-  background:#26313d;
-  color:#c5d0db;
-}
-
-.font-large{
+.natinf-code{
+  color:var(--accent);
+  font-weight:900;
   font-size:18px;
 }
 
-.font-large .document-help,
-.font-large .small{
-  font-size:14px;
+/* FAVORIS */
+
+.favorite.active{
+  color:#f59e0b;
 }
 
-.toast{
-  position:fixed;
-  left:50%;
-  bottom:20px;
-  transform:translateX(-50%);
-  z-index:600;
-  background:#101827;
-  color:white;
-  padding:11px 15px;
-  border-radius:12px;
-  box-shadow:0 4px 18px #0005;
-  display:none;
-  max-width:90%;
-  text-align:center;
+/* REDACTION */
+
+.copybox{
+  width:100%;
+  min-height:210px;
+  resize:vertical;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  border-radius:14px;
+  padding:13px;
 }
 
-.toast.show{
-  display:block;
-}
-
-.hidden{
-  display:none!important;
+.small{
+  font-size:12px;
 }
 
 hr{
   border:0;
   border-top:1px solid var(--border);
-  margin:15px 0;
-}
-
-ul{
-  padding-left:21px;
-}
-
-a{
-  color:#1672a8;
-}
-
-.night a{
-  color:#7ec9f4;
-}
-
-.quick-profession{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:8px;
-}
-
-.quick-profession button{
-  padding:13px 8px;
-  border:1px solid var(--border);
-  background:var(--card);
-  color:var(--text);
-  border-radius:11px;
-  font-weight:700;
+  margin:18px 0;
 }
 </style>
 </head>
@@ -650,2257 +601,1104 @@ a{
 
 <header class="app-header">
   <div class="header-row">
-    <button class="header-button" onclick="goHome()" aria-label="Accueil">☰</button>
-
-    <div class="header-title">
-      <strong>T3P — POLICE MUNICIPALE</strong>
-      <span>Contrôler • Vérifier • Qualifier • Rédiger</span>
+    <div class="brand">
+      T3P — Police Municipale
+      <small>Contrôler → Vérifier → Qualifier → Rédiger</small>
     </div>
 
-    <button class="header-button" onclick="toggleNight()" aria-label="Mode nuit">☾</button>
+    <button class="icon-btn" id="themeBtn" onclick="toggleTheme()"
+            aria-label="Mode nuit">🌙</button>
   </div>
 </header>
 
 <main>
 
-<!-- ========================================================= -->
-<!-- ACCUEIL -->
-<!-- ========================================================= -->
+<!-- ================= ACCUEIL ================= -->
 
 <section id="home" class="view active">
 
+  <h1>Contrôle T3P</h1>
+  <p class="muted">
+    Outil opérationnel de contrôle Taxi, VTC, LOTI, VMDTR et CPA.
+  </p>
+
   <input
-    id="search"
-    class="search-box"
+    id="globalSearch"
+    class="search"
     type="search"
-    placeholder="Rechercher : REVTC, assurance, ticket, licence, NATINF…"
-    autocomplete="off"
+    placeholder="🔎 Rechercher : ADS, REVTC, aptitude, maraude..."
+    oninput="globalSearch(this.value)"
   >
 
-  <div id="search-results"></div>
+  <div id="searchResults"></div>
 
-  <div class="card info">
-    <div class="card-body">
-      <strong>Contrôle T3P en 3–4 minutes quand tout est conforme.</strong>
-      <br>
-      L'application adapte les documents à contrôler au statut du véhicule,
-      puis analyse les anomalies constatées.
-    </div>
-  </div>
+  <button class="big-button" onclick="startControl()">
+    🚨 CONTRÔLE RAPIDE
+  </button>
 
-  <div class="home-grid">
+  <div class="section-title">Professions</div>
 
-    <button class="menu-card" onclick="openControl()">
-      <div class="menu-icon">⚡</div>
-      <strong>Contrôle rapide</strong>
-      <small>Le parcours terrain principal.</small>
+  <div class="grid">
+
+    <button class="prof-button" onclick="openSection('taxi')">
+      🚕 Taxi
+      <span>ADS · taximètre · tarifs · ticket</span>
     </button>
 
-    <button class="menu-card" onclick="openView('taxi')">
-      <div class="menu-icon">🚕</div>
-      <strong>Taxi</strong>
-      <small>Documents, équipements, tarifs, ADS.</small>
+    <button class="prof-button" onclick="openSection('vtc')">
+      🚘 VTC
+      <span>REVTC · réservation · maraude</span>
     </button>
 
-    <button class="menu-card" onclick="openView('vtc')">
-      <div class="menu-icon">🚗</div>
-      <strong>VTC</strong>
-      <small>REVTC, réservation, salarié, maraude.</small>
+    <button class="prof-button" onclick="openSection('loti')">
+      🚌 LOTI
+      <span>Licence · copie conforme · groupe</span>
     </button>
 
-    <button class="menu-card" onclick="openView('loti')">
-      <div class="menu-icon">🚌</div>
-      <strong>LOTI</strong>
-      <small>Licence, copie conforme, groupe, assurance.</small>
-    </button>
-
-    <button class="menu-card" onclick="openView('vmdtr')">
-      <div class="menu-icon">🏍️</div>
-      <strong>VMDTR / CPA</strong>
-      <small>Vignette bleue et règles spécifiques.</small>
-    </button>
-
-    <button class="menu-card" onclick="openView('infractions')">
-      <div class="menu-icon">⚖️</div>
-      <strong>Infractions / NATINF</strong>
-      <small>Recherche rapide et qualifications possibles.</small>
-    </button>
-
-    <button class="menu-card" onclick="openView('redaction')">
-      <div class="menu-icon">📝</div>
-      <strong>Rédaction</strong>
-      <small>Trame de constatation et rapport.</small>
-    </button>
-
-    <button class="menu-card" onclick="openView('documents')">
-      <div class="menu-icon">🪪</div>
-      <strong>Documents</strong>
-      <small>Images, zoom et points à vérifier.</small>
-    </button>
-
-    <button class="menu-card" onclick="openView('favoris')">
-      <div class="menu-icon">⭐</div>
-      <strong>Favoris</strong>
-      <small>Vos fiches utilisées le plus souvent.</small>
-    </button>
-
-    <button class="menu-card" onclick="openView('annexes')">
-      <div class="menu-icon">🔗</div>
-      <strong>Annexes / ressources</strong>
-      <small>REVTC, registre transporteurs, Légifrance.</small>
-    </button>
-
-    <button class="menu-card" onclick="openView('doute')">
-      <div class="menu-icon">⚠️</div>
-      <strong>J'ai un doute</strong>
-      <small>Ne pas surqualifier : méthode.</small>
-    </button>
-
-    <button class="menu-card" onclick="openView('apropos')">
-      <div class="menu-icon">ℹ️</div>
-      <strong>À propos / retour</strong>
-      <small>Version, manuel et suggestions.</small>
+    <button class="prof-button" onclick="openSection('vmdtr')">
+      🏍️ VMDTR / CPA
+      <span>Deux/trois-roues · vélo-taxi</span>
     </button>
 
   </div>
 
-  <div class="footer">
-    T3P — outil opérationnel Police Municipale<br>
-    Version application V3
-  </div>
+  <div class="section-title">Outils</div>
+
+  <button class="menu-button" onclick="openSection('natinf')">
+    ⚖️ Infractions / NATINF
+  </button>
+
+  <button class="menu-button" onclick="openSection('documents')">
+    🪪 Documents / identification visuelle
+  </button>
+
+  <button class="menu-button" onclick="openSection('redaction')">
+    📝 Rédaction du rapport
+  </button>
+
+  <button class="menu-button" onclick="openSection('doute')">
+    ⚠️ Doute documentaire / procédure
+  </button>
+
+  <button class="menu-button" onclick="openSection('favorites')">
+    ⭐ Favoris
+  </button>
+
+  <button class="menu-button" onclick="openSection('about')">
+    ℹ️ À propos / sources / retour
+  </button>
 
 </section>
 
 
-<!-- ========================================================= -->
-<!-- CONTROLE -->
-<!-- ========================================================= -->
+<!-- ================= TAXI ================= -->
 
-<section id="control" class="view">
+<section id="taxi" class="view">
 
-  <button class="back-button" onclick="goHome()">← Accueil</button>
+  <button class="back" onclick="goHome()">← Accueil</button>
+  <h2>🚕 Taxi</h2>
 
-  <h2>⚡ Contrôle rapide</h2>
+  <div class="card">
+    <h3>Documents et éléments à contrôler</h3>
 
-  <div class="card info">
-    <div class="card-body">
-      <strong>Étape 1 — Identifier le statut</strong>
-      <br>
-      La signalétique constitue un indice de départ. Elle ne suffit pas,
-      à elle seule, à établir le statut juridique.
+    <div class="check-static">
+      <b>Carte professionnelle</b>
+      <p class="muted small">
+        Identité, numéro, validité et cohérence avec le conducteur.
+      </p>
     </div>
+
+    <hr>
+
+    <b>Attestation préfectorale d'aptitude physique</b>
+    <p class="muted small">
+      Document distinct de la carte professionnelle. Sa validité doit être
+      appréciée selon les règles applicables, notamment en fonction de l'âge.
+    </p>
+
+    <hr>
+
+    <b>ADS — Autorisation de stationnement</b>
+    <p class="muted small">
+      Vérifier l'existence, la cohérence avec le véhicule et le ressort
+      de l'autorisation.
+    </p>
+
+    <hr>
+
+    <b>Assurance</b>
+    <p class="muted small">
+      Vérifier que le véhicule est assuré pour l'activité et que les
+      éléments présentés sont cohérents.
+    </p>
+
+    <hr>
+
+    <b>Taximètre</b>
+    <p class="muted small">
+      Fonctionnement, position tarifaire et cohérence avec la course.
+    </p>
+
+    <hr>
+
+    <b>Carnet métrologique</b>
+    <p class="muted small">
+      Installation, vérifications et éléments métrologiques.
+    </p>
+
+    <hr>
+
+    <b>Tarifs / positions A-B-C-D</b>
+    <p class="muted small">
+      A = aller-retour jour · B = aller-retour nuit/dimanche/férié ·
+      C = aller simple jour · D = aller simple nuit/dimanche/férié.
+      Les montants et horaires précis doivent être vérifiés dans l'arrêté
+      tarifaire applicable.
+    </p>
+
+    <hr>
+
+    <b>Ticket / note</b>
+    <p class="muted small">
+      Vérifier la remise du justificatif lorsque les conditions réglementaires
+      sont réunies ou à la demande du client.
+    </p>
+
+    <hr>
+
+    <b>Terminal de paiement</b>
+    <p class="muted small">
+      Vérifier la possibilité de paiement par carte et l'affichage des prix.
+    </p>
+
+    <hr>
+
+    <b>Forfait</b>
+    <p class="muted small">
+      Un forfait n'est applicable que lorsqu'il est expressément prévu
+      par la réglementation tarifaire locale applicable.
+    </p>
+
+    <hr>
+
+    <b>Taxi relais</b>
+    <p class="muted small">
+      Vérifier les éléments spécifiques : ADS/carte du taxi remplacé,
+      assurance, justificatifs et signalétique.
+    </p>
+
+    <hr>
+
+    <b>Maraude</b>
+    <p class="muted small">
+      Vérifier que la prise en charge et le stationnement correspondent
+      au régime applicable au taxi et à son ADS.
+    </p>
   </div>
 
-  <div class="quick-profession">
+  <button class="primary"
+          onclick="startControl('taxi')">
+    🚨 Contrôler un taxi
+  </button>
 
-    <button onclick="startControl('taxi')">🚕 TAXI</button>
-    <button onclick="startControl('vtc')">🚗 VTC</button>
-    <button onclick="startControl('loti')">🚌 LOTI</button>
-    <button onclick="startControl('vmdtr')">🏍️ VMDTR</button>
+</section>
+
+
+<!-- ================= VTC ================= -->
+
+<section id="vtc" class="view">
+
+  <button class="back" onclick="goHome()">← Accueil</button>
+  <h2>🚘 VTC</h2>
+
+  <div class="card">
+
+    <h3>Documents</h3>
+
+    <b>Carte professionnelle VTC</b>
+    <p class="muted small">
+      Carte sécurisée. Vérifier identité, numéro et validité.
+      L'ancien modèle papier non sécurisé constitue une anomalie.
+    </p>
+
+    <hr>
+
+    <b>Attestation préfectorale d'aptitude physique</b>
+    <p class="muted small">
+      Document indépendant de la carte professionnelle.
+    </p>
+
+    <div class="notice">
+      <b>NATINF possible : 22874</b><br>
+      Conduite sans attestation préfectorale d'aptitude physique.
+      <br><span class="small">
+      À confirmer dans la base NATINF en vigueur avant procédure.
+      </span>
+    </div>
+
+    <hr>
+
+    <b>REVTC</b>
+    <p class="muted small">
+      Vérifier l'inscription de l'exploitant au registre et la cohérence
+      avec le numéro figurant sur la vignette.
+    </p>
+
+    <a class="link"
+       target="_blank"
+       href="https://registre-vtc.developpement-durable.gouv.fr/public/recherche-simple/init-modif">
+       🔗 Recherche officielle REVTC
+    </a>
+
+    <hr>
+
+    <b>Vignettes VTC</b>
+    <p class="muted small">
+      Vignette rouge à l'avant et à l'arrière. Vérifier numéro REVTC,
+      immatriculation et cohérence avec l'exploitant.
+    </p>
+
+    <hr>
+
+    <b>Assurance</b>
+    <p class="muted small">
+      Vérifier l'assurance couvrant le transport de personnes à titre
+      onéreux et sa cohérence avec l'exploitant concerné.
+    </p>
+
+    <hr>
+
+    <b>Conducteur salarié</b>
+    <p class="muted small">
+      Si le conducteur indique être salarié, vérifier les éléments permettant
+      de justifier son lien avec l'exploitant : contrat, bulletin de salaire,
+      attestation ou autre justificatif cohérent.
+    </p>
+
+    <hr>
+
+    <b>Réservation préalable</b>
+    <p class="muted small">
+      Vérifier l'existence d'une réservation préalable avant la prise en charge.
+    </p>
+
+    <hr>
+
+    <b>Maraude physique</b>
+    <p class="muted small">
+      Pas de stationnement ou circulation en quête de clients.
+    </p>
+
+    <hr>
+
+    <b>Maraude électronique</b>
+    <p class="muted small">
+      Attention à l'affichage de disponibilité ou de localisation en temps
+      réel avant réservation.
+    </p>
+
+    <hr>
+
+    <b>Retour entre deux courses</b>
+    <p class="muted small">
+      Après une course, vérifier le respect des règles de retour à
+      l'établissement ou au lieu autorisé, sauf nouvelle réservation
+      ou contrat avec le client final.
+    </p>
+
+    <hr>
+
+    <b>Véhicule</b>
+    <p class="muted small">
+      Vérifier caractéristiques, ancienneté, contrôle technique et cohérence
+      avec le statut VTC.
+    </p>
+
+  </div>
+
+  <button class="primary"
+          onclick="startControl('vtc')">
+    🚨 Contrôler un VTC
+  </button>
+
+</section>
+
+
+<!-- ================= LOTI ================= -->
+
+<section id="loti" class="view">
+
+  <button class="back" onclick="goHome()">← Accueil</button>
+  <h2>🚌 LOTI</h2>
+
+  <div class="card">
+
+    <b>Licence de transport intérieur</b>
+    <p class="muted small">
+      Vérifier numéro, exploitant et validité.
+    </p>
+
+    <hr>
+
+    <b>Copie conforme</b>
+    <p class="muted small">
+      Doit être présente à bord et cohérente avec le véhicule.
+    </p>
+
+    <div class="notice">
+      <b>NATINF 27777</b><br>
+      Transport public routier de personnes sans copie conforme du titre
+      administratif à bord.
+    </div>
+
+    <hr>
+
+    <b>Vignette LOTI violette</b>
+    <p class="muted small">
+      Vérifier la présence et la cohérence de la vignette avant/arrière,
+      ainsi que le numéro de licence.
+    </p>
+
+    <hr>
+
+    <b>Attestation préfectorale d'aptitude physique</b>
+    <p class="muted small">
+      Document distinct de la carte ou des autres titres.
+    </p>
+
+    <div class="notice">
+      <b>NATINF possible : 22874</b><br>
+      Conduite sans attestation préfectorale d'aptitude physique.
+      <br><span class="small">
+      À confirmer dans la base NATINF en vigueur avant procédure.
+      </span>
+    </div>
+
+    <hr>
+
+    <b>Assurance</b>
+    <p class="muted small">
+      Vérifier l'assurance couvrant le transport de personnes à titre
+      onéreux et sa cohérence avec l'exploitant titulaire du titre.
+    </p>
+
+    <hr>
+
+    <b>SIREN / exploitant</b>
+    <p class="muted small">
+      En cas de doute, rapprocher le nom et le SIREN des éléments du
+      registre et des documents présentés.
+    </p>
+
+    <a class="link"
+       target="_blank"
+       href="https://www2.transports.developpement-durable.gouv.fr/registres/voyageurs/">
+       🔗 Registre national des transporteurs
+    </a>
+
+    <hr>
+
+    <b>Billet collectif</b>
+    <p class="muted small">
+      Vérifier la cohérence du service de groupe et l'existence du billet
+      collectif lorsque celui-ci est requis.
+    </p>
+
+    <hr>
+
+    <b>Groupe constitué</b>
+    <p class="muted small">
+      Vérifier notamment comment les passagers ont réservé et si le groupe
+      était constitué avant le départ.
+    </p>
+
+    <hr>
+
+    <b>Agglomération de plus de 100 000 habitants</b>
+    <p class="muted small">
+      Vérifier la capacité du véhicule et les restrictions applicables
+      aux services individuels à la demande.
+    </p>
+
+    <hr>
+
+    <b>Réservation / maraude</b>
+    <p class="muted small">
+      Une prise en charge individuelle sans réservation préalable peut
+      révéler une maraude déguisée.
+    </p>
+
+    <div class="danger notice">
+      <b>Document douteux :</b><br>
+      ne pas qualifier immédiatement de « faux ». Relever les références,
+      photographier si le cadre juridique le permet et transmettre à l'OPJ
+      pour vérification.
+    </div>
+
+  </div>
+
+  <button class="primary"
+          onclick="startControl('loti')">
+    🚨 Contrôler un LOTI
+  </button>
+
+</section>
+
+
+<!-- ================= VMDTR ================= -->
+
+<section id="vmdtr" class="view">
+
+  <button class="back" onclick="goHome()">← Accueil</button>
+  <h2>🏍️ VMDTR / CPA</h2>
+
+  <div class="card">
+
+    <h3>VMDTR</h3>
+
+    <b>Carte professionnelle</b>
+    <p class="muted small">
+      Vérifier identité, numéro et validité.
+    </p>
+
+    <hr>
+
+    <b>Attestation préfectorale d'aptitude physique</b>
+
+    <div class="notice">
+      <b>NATINF 28159</b><br>
+      Conduite d'un véhicule motorisé à deux ou trois roues utilisé pour
+      le transport à titre onéreux sans attestation préfectorale
+      d'aptitude physique.
+      <br><span class="small">
+      À confirmer dans la base NATINF en vigueur avant procédure.
+      </span>
+    </div>
+
+    <hr>
+
+    <b>Vignette bleue</b>
+    <p class="muted small">
+      Vérifier la présence et la cohérence de la signalétique VMDTR.
+    </p>
+
+    <hr>
+
+    <b>Réservation préalable</b>
+    <p class="muted small">
+      Vérifier l'existence de la réservation avant la prise en charge.
+    </p>
+
+    <hr>
+
+    <b>Assurance RC Pro + assurance du véhicule</b>
+    <p class="muted small">
+      Vérifier que les assurances couvrent l'activité et le transport
+      de personnes à titre onéreux.
+    </p>
+
+    <hr>
+
+    <b>Véhicule</b>
+    <p class="muted small">
+      Moto de moins de 5 ans, puissance nette d'au moins 40 kW sauf
+      exceptions prévues, équipement passager et entretien annuel.
+    </p>
+
+    <hr>
+
+    <b>Passagers</b>
+    <p class="muted small">
+      Un VMDTR ne transporte qu'un seul passager à la fois.
+    </p>
 
   </div>
 
   <div class="card">
-    <div class="card-body">
-      <strong>CPA / vélo-taxi</strong>
-      <br>
-      <button class="action-button primary" onclick="startControl('cpa')">
-        Contrôler un CPA
-      </button>
-    </div>
+    <h3>CPA — vélo-taxi</h3>
+
+    <p>
+      Le CPA est soumis à un régime distinct du VMDTR.
+    </p>
+
+    <p class="muted small">
+      Ne pas rechercher une carte professionnelle individuelle comme
+      condition de contrôle du conducteur CPA.
+    </p>
+
+    <p class="muted small">
+      Contrôler notamment réservation, signalétique de l'exploitant,
+      assurance et caractéristiques du cycle.
+    </p>
   </div>
 
-</section>
-
-
-<!-- ========================================================= -->
-<!-- CONTROLE DYNAMIQUE -->
-<!-- ========================================================= -->
-
-<section id="dynamic-control" class="view">
-
-  <button class="back-button" onclick="openControl()">← Choisir le statut</button>
-
-  <div id="control-title"></div>
-
-  <div class="card info">
-    <div class="card-body">
-      <strong>Statut du conducteur</strong>
-      <div class="status-row">
-        <button id="driver-exploitant" class="status-button" onclick="setDriverStatus('exploitant')">
-          Exploitant
-        </button>
-        <button id="driver-salarie" class="status-button" onclick="setDriverStatus('salarie')">
-          Salarié
-        </button>
-        <button id="driver-particulier" class="status-button" onclick="setDriverStatus('particulier')">
-          Situation particulière
-        </button>
-        <button id="driver-doute" class="status-button" onclick="setDriverStatus('doute')">
-          À vérifier
-        </button>
-      </div>
-
-      <div class="small muted">
-        L'application aide à relever les éléments utiles. Elle ne tranche pas
-        elle-même la validité d'un contrat de travail ou d'une situation sociale.
-      </div>
-    </div>
-  </div>
-
-  <div id="documents-control"></div>
-
-  <button
-    class="action-button green"
-    style="width:100%;padding:14px;margin-top:10px"
-    onclick="analyzeControl()"
-  >
-    🔎 Analyser le contrôle
+  <button class="primary"
+          onclick="startControl('vmdtr')">
+    🚨 Contrôler un VMDTR
   </button>
 
-  <div id="analysis-result"></div>
+</section>
+
+
+<!-- ================= CONTRÔLE RAPIDE ================= -->
+
+<section id="control" class="view">
+
+  <button class="back" onclick="goHome()">← Accueil</button>
+
+  <h2>🚨 Contrôle rapide</h2>
+
+  <div id="controlStep1" class="step active">
+
+    <div class="card">
+      <h3>1. Quel statut ?</h3>
+      <p class="muted">
+        Sélectionnez la profession revendiquée avant le contrôle
+        documentaire.
+      </p>
+
+      <div class="type-choice">
+
+        <button onclick="chooseType('taxi',this)">
+          🚕 Taxi
+        </button>
+
+        <button onclick="chooseType('vtc',this)">
+          🚘 VTC
+        </button>
+
+        <button onclick="chooseType('loti',this)">
+          🚌 LOTI
+        </button>
+
+        <button onclick="chooseType('vmdtr',this)">
+          🏍️ VMDTR
+        </button>
+
+      </div>
+
+      <div id="driverStatusBox" style="display:none;margin-top:15px">
+
+        <h3>Statut du conducteur</h3>
+
+        <select id="driverStatus"
+                onchange="updateDriverStatus()"
+                class="search">
+
+          <option value="">Sélectionner…</option>
+          <option value="exploitant">Exploitant</option>
+          <option value="salarie">Salarié</option>
+          <option value="autre">Autre / à vérifier</option>
+
+        </select>
+
+        <div id="driverStatusInfo" class="notice" style="display:none"></div>
+
+      </div>
+
+      <button class="primary"
+              onclick="goToChecklist()">
+        Continuer →
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div id="controlStep2" class="step">
+
+    <div class="card">
+
+      <h3 id="controlTitle">Contrôle</h3>
+
+      <div class="control-progress">
+        <span id="progressBar"></span>
+      </div>
+
+      <div id="checklist"></div>
+
+      <button class="primary"
+              onclick="analyzeControl()">
+        ⚖️ Analyser le contrôle
+      </button>
+
+      <button class="secondary"
+              onclick="resetControl()">
+        ↺ Recommencer
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div id="controlStep3" class="step">
+
+    <div class="card">
+
+      <h3>Résultat du contrôle</h3>
+
+      <div id="controlResult"></div>
+
+      <button class="primary"
+              onclick="openSection('redaction')">
+        📝 Voir la rédaction
+      </button>
+
+      <button class="secondary"
+              onclick="resetControl()">
+        ↺ Nouveau contrôle
+      </button>
+
+    </div>
+
+  </div>
 
 </section>
 
 
-<!-- ========================================================= -->
-<!-- TAXI -->
-<!-- ========================================================= -->
+<!-- ================= NATINF ================= -->
 
-<section id="taxi" class="view">
+<section id="natinf" class="view">
 
-<button class="back-button" onclick="goHome()">← Accueil</button>
+  <button class="back" onclick="goHome()">← Accueil</button>
 
-<div class="profession-title">
-  <h2>🚕 Taxi</h2>
-  <button class="favorite-button" onclick="toggleFavorite('taxi')">☆</button>
-</div>
+  <h2>⚖️ Infractions / NATINF</h2>
 
-<details class="card taxi-border" open>
-<summary>Documents à contrôler</summary>
-<div class="card-body">
+  <p class="muted small">
+    Codes repris du manuel. Toujours confirmer l'intitulé et la qualification
+    dans la base NATINF en vigueur avant procédure.
+  </p>
 
-<ul>
-<li>Carte professionnelle taxi.</li>
-<li>Attestation préfectorale d'aptitude physique.</li>
-<li>ADS / autorisation de stationnement.</li>
-<li>Certificat d'immatriculation.</li>
-<li><strong>Assurance adaptée au transport de personnes à titre onéreux.</strong></li>
-<li>Carnet métrologique.</li>
-<li>Contrôle technique et éléments réglementaires du véhicule.</li>
-</ul>
+  <input class="search natinf-search"
+         id="natinfSearch"
+         placeholder="Rechercher NATINF ou infraction..."
+         oninput="renderNatinf(this.value)">
 
-</div>
-</details>
-
-<details class="card">
-<summary>Équipements et taximètre</summary>
-<div class="card-body">
-<ul>
-<li>Lumineux « Taxi ».</li>
-<li>Taximètre.</li>
-<li>Positions A / B / C / D.</li>
-<li>Affichage des tarifs.</li>
-<li>Terminal de paiement.</li>
-<li>Dispositif permettant l'édition du ticket / de la note.</li>
-</ul>
-</div>
-</details>
-
-<details class="card">
-<summary>Tarifs A / B / C / D</summary>
-<div class="card-body">
-<ul>
-<li><strong>A :</strong> aller-retour, jour.</li>
-<li><strong>B :</strong> aller-retour, nuit / dimanche / jours fériés.</li>
-<li><strong>C :</strong> aller simple, jour.</li>
-<li><strong>D :</strong> aller simple, nuit / dimanche / jours fériés.</li>
-</ul>
-<p class="small muted">
-Les montants et horaires exacts doivent être vérifiés dans l'arrêté
-tarifaire préfectoral applicable.
-</p>
-</div>
-</details>
-
-<details class="card">
-<summary>Ticket / note de fin de course</summary>
-<div class="card-body">
-<p>
-Le justificatif comporte notamment les éléments réglementaires :
-prix, date, immatriculation et licence.
-Il est délivré dans les conditions réglementaires, notamment
-au-delà du montant prévu ou sur demande du client.
-</p>
-
-<div class="warning" style="padding:10px;border-radius:10px">
-<strong>Important :</strong>
-le NATINF du refus de délivrance du ticket / de la note n'est pas
-figé dans cette application tant qu'il n'a pas été vérifié dans
-la base NATINF à jour.
-</div>
-</div>
-</details>
-
-<details class="card">
-<summary>Maraude / gare / aérogare</summary>
-<div class="card-body">
-<p>
-Vérifier le ressort de l'ADS et les règles particulières applicables
-aux gares et aérogare.
-</p>
-</div>
-</details>
-
-<details class="card">
-<summary>Forfait</summary>
-<div class="card-body">
-<p>
-Le forfait n'est applicable que lorsqu'il est prévu par le tarif
-préfectoral ou le régime local applicable.
-</p>
-</div>
-</details>
-
-<details class="card">
-<summary>Taxi relais</summary>
-<div class="card-body">
-<ul>
-<li>ADS / carte du taxi remplacé.</li>
-<li>Immatriculation.</li>
-<li>Assurance.</li>
-<li>Justificatif d'indisponibilité.</li>
-<li>Contrat de location lorsque nécessaire.</li>
-<li>Signalétique « TAXI RELAIS » / « RELAIS ».</li>
-</ul>
-</div>
-</details>
+  <div id="natinfList"></div>
 
 </section>
 
 
-<!-- ========================================================= -->
-<!-- VTC -->
-<!-- ========================================================= -->
-
-<section id="vtc" class="view">
-
-<button class="back-button" onclick="goHome()">← Accueil</button>
-
-<div class="profession-title">
-  <h2>🚗 VTC</h2>
-  <button class="favorite-button" onclick="toggleFavorite('vtc')">☆</button>
-</div>
-
-<details class="card vtc-border" open>
-<summary>Documents essentiels</summary>
-<div class="card-body">
-
-<ul>
-<li>Carte professionnelle VTC.</li>
-<li>Attestation préfectorale d'aptitude physique.</li>
-<li>Inscription REVTC de l'exploitant.</li>
-<li>Vignette REVTC rouge avant et arrière.</li>
-<li><strong>RC professionnelle de l'exploitant.</strong></li>
-<li>Justificatif de réservation préalable.</li>
-<li>Certificat d'immatriculation.</li>
-<li>Contrôle technique.</li>
-</ul>
-
-</div>
-</details>
-
-<details class="card">
-<summary>Exploitant / chauffeur salarié</summary>
-<div class="card-body">
-
-<p>
-Le conducteur peut être l'exploitant lui-même ou être salarié /
-rattaché à un exploitant distinct.
-</p>
-
-<ul>
-<li>
-Le chauffeur salarié doit pouvoir justifier son lien avec
-l'exploitant.
-</li>
-<li>
-Documents possibles : attestation de lien, bulletin de salaire,
-contrat de travail ou autre justificatif pertinent.
-</li>
-<li>
-Le salarié n'a pas à avoir une inscription REVTC personnelle
-ni une RC Pro individuelle simplement du fait qu'il est salarié.
-</li>
-<li>
-La RC Pro et l'inscription REVTC à contrôler sont celles de
-l'exploitant réel.
-</li>
-</ul>
-
-<div class="warning" style="padding:10px;border-radius:10px">
-<strong>Attention :</strong>
-l'agent décrit les documents et les incohérences constatées.
-Il ne se prononce pas lui-même sur la validité sociale du contrat
-de travail.
-</div>
-
-</div>
-</details>
-
-<details class="card">
-<summary>Conducteur utilisant son véhicule personnel</summary>
-<div class="card-body">
-<p>
-Le seul fait que le certificat d'immatriculation soit au nom du
-conducteur alors que la vignette REVTC correspond à un autre
-exploitant ne suffit pas, à lui seul, à caractériser une irrégularité.
-</p>
-
-<p>
-Relever, lorsque cela est pertinent, le justificatif permettant
-d'établir les conditions d'utilisation du véhicule :
-contrat, avenant, convention de mise à disposition ou autre justificatif.
-</p>
-</div>
-</details>
-
-<details class="card">
-<summary>Vignette REVTC</summary>
-<div class="card-body">
-
-<ul>
-<li>Vignette rouge.</li>
-<li>Avant + arrière.</li>
-<li>Numéro REVTC / EVTC.</li>
-<li>Numéro d'immatriculation.</li>
-<li>Cohérence avec l'exploitant déclaré.</li>
-</ul>
-
-<div class="info" style="padding:10px;border-radius:10px">
-Le numéro REVTC est celui de l'exploitant, pas celui du chauffeur
-salarié en tant que personne physique.
-</div>
-
-</div>
-</details>
-
-<details class="card">
-<summary>Vignette provisoire</summary>
-<div class="card-body">
-
-<ul>
-<li>Document provisoire derrière le pare-brise.</li>
-<li>Validité limitée.</li>
-<li>Accusé de paiement de la commande.</li>
-<li>Attestation d'inscription REVTC associée.</li>
-</ul>
-
-<p>
-Une vignette provisoire présentée sans les justificatifs associés
-ou trop ancienne doit conduire à approfondir la vérification avant
-de conclure.
-</p>
-
-</div>
-</details>
-
-<details class="card">
-<summary>Réservation préalable</summary>
-<div class="card-body">
-
-<ul>
-<li>Date / heure de réservation.</li>
-<li>Client identifié.</li>
-<li>Lieu de prise en charge.</li>
-<li>Bon de commande ou équivalent.</li>
-<li>Coordonnées du client lorsqu'elles doivent être communiquées.</li>
-</ul>
-
-</div>
-</details>
-
-<details class="card">
-<summary>Maraude physique et électronique</summary>
-<div class="card-body">
-
-<p>
-Le VTC ne peut ni stationner ni circuler sur la voie publique
-en quête de clients sans réservation préalable.
-</p>
-
-<p>
-La maraude électronique doit également être recherchée :
-affichage de disponibilité ou localisation du véhicule avant
-commande effective.
-</p>
-
-</div>
-</details>
-
-<details class="card">
-<summary>Entre deux courses</summary>
-<div class="card-body">
-<p>
-Après une prestation, le conducteur doit retourner au lieu
-d'établissement de l'exploitant ou dans un lieu hors chaussée
-où le stationnement est autorisé, sauf nouvelle réservation
-ou contrat avec le client final.
-</p>
-</div>
-</details>
-
-<details class="card">
-<summary>Véhicule</summary>
-<div class="card-body">
-<ul>
-<li>Véhicule de moins de 7 ans selon le régime présenté dans le manuel.</li>
-<li>Exceptions pour véhicules électriques / hybrides selon le régime applicable.</li>
-<li>Contrôle technique annuel.</li>
-<li>Vérification des caractéristiques réglementaires.</li>
-</ul>
-</div>
-</details>
-
-<details class="card">
-<summary>Réforme 2026 — mise à disposition du REVTC</summary>
-<div class="card-body">
-
-<p>
-Le manuel rappelle la réforme de 2026 relative à la mise à disposition
-de l'inscription REVTC à un tiers.
-</p>
-
-<p>
-En présence d'un chauffeur utilisant l'inscription d'un exploitant
-sans lien clair, relever précisément les faits et transmettre.
-</p>
-
-</div>
-</details>
-
-</section>
-
-
-<!-- ========================================================= -->
-<!-- LOTI -->
-<!-- ========================================================= -->
-
-<section id="loti" class="view">
-
-<button class="back-button" onclick="goHome()">← Accueil</button>
-
-<div class="profession-title">
-  <h2>🚌 LOTI</h2>
-  <button class="favorite-button" onclick="toggleFavorite('loti')">☆</button>
-</div>
-
-<details class="card loti-border" open>
-<summary>Documents essentiels</summary>
-<div class="card-body">
-
-<ul>
-<li>Licence de transport intérieur.</li>
-<li><strong>Copie conforme numérotée à bord.</strong></li>
-<li><strong>Vignettes LOTI violettes avant et arrière.</strong></li>
-<li>Attestation de capacité du gestionnaire.</li>
-<li>Attestation préfectorale d'aptitude physique du conducteur.</li>
-<li>Billet collectif.</li>
-<li><strong>Assurance professionnelle couvrant le transport de personnes à titre onéreux.</strong></li>
-<li>Certificat d'immatriculation.</li>
-<li>Contrat / feuille de route selon la prestation.</li>
-</ul>
-
-</div>
-</details>
-
-<details class="card">
-<summary>Exploitant / conducteur</summary>
-<div class="card-body">
-
-<p>
-Le contrôle distingue les documents propres au conducteur de ceux
-relatifs à l'entreprise exploitante et au gestionnaire de transport.
-</p>
-
-<ul>
-<li>Conducteur : carte / aptitude physique selon le régime.</li>
-<li>Entreprise : licence de transport.</li>
-<li>Véhicule : copie conforme correspondante.</li>
-<li>Exploitant : assurance professionnelle correspondante.</li>
-</ul>
-
-</div>
-</details>
-
-<details class="card">
-<summary>Copie conforme</summary>
-<div class="card-body">
-
-<p>
-La copie conforme est l'exemplaire numéroté de la licence conservé
-à bord du véhicule affecté au transport.
-</p>
-
-<ul>
-<li>Numéro.</li>
-<li>Exploitant.</li>
-<li>Concordance avec le titre.</li>
-<li>Concordance avec le véhicule.</li>
-</ul>
-
-<p>
-Une simple photocopie non conforme ne remplace pas la copie conforme.
-</p>
-
-</div>
-</details>
-
-<details class="card">
-<summary>Vignettes LOTI violettes</summary>
-<div class="card-body">
-
-<ul>
-<li>Vignette violette à l'avant.</li>
-<li>Vignette violette à l'arrière.</li>
-<li>Numéro cohérent.</li>
-<li>Concordance avec la licence.</li>
-<li>Concordance avec le véhicule.</li>
-</ul>
-
-<p>
-Le manuel traite également de l'obligation de retrait / occultation
-de la signalétique LOTI lorsque le véhicule est utilisé pour une
-autre activité.
-</p>
-
-</div>
-</details>
-
-<details class="card">
-<summary>Billet collectif</summary>
-<div class="card-body">
-
-<p>
-Le billet collectif permet d'établir qu'un groupe d'au moins deux
-personnes a été constitué et réservé avant le départ.
-</p>
-
-<p>
-En cas de doute, demander séparément aux passagers comment la
-réservation a été effectuée.
-</p>
-
-</div>
-</details>
-
-<details class="card">
-<summary>Restriction Grandguillaume</summary>
-<div class="card-body">
-
-<p>
-Le manuel rappelle la restriction concernant les agglomérations
-de plus de 100 000 habitants et les véhicules de moins de 10 places,
-chauffeur compris.
-</p>
-
-</div>
-</details>
-
-<details class="card">
-<summary>Assurance professionnelle</summary>
-<div class="card-body">
-
-<p>
-Vérifier que l'attestation d'assurance concerne bien l'exploitant
-et couvre le transport de personnes à titre onéreux.
-</p>
-
-<div class="warning" style="padding:10px;border-radius:10px">
-Ne pas se contenter de la présence d'une attestation :
-relever l'identité de l'assuré et vérifier sa cohérence avec
-l'entreprise exploitante et la licence présentée.
-</div>
-
-</div>
-</details>
-
-<details class="card">
-<summary>Suspicion de faux / SIREN incohérent</summary>
-<div class="card-body">
-
-<ol>
-<li>Relever le numéro de licence.</li>
-<li>Relever le SIREN / exploitant.</li>
-<li>Comparer aux documents.</li>
-<li>Vérifier le registre disponible.</li>
-<li>Relever les discordances.</li>
-<li>Photographier / relever les références si légalement possible.</li>
-<li>Rendre compte à l'OPJ en cas de suspicion sérieuse.</li>
-</ol>
-
-</div>
-</details>
-
-</section>
-
-
-<!-- ========================================================= -->
-<!-- VMDTR / CPA -->
-<!-- ========================================================= -->
-
-<section id="vmdtr" class="view">
-
-<button class="back-button" onclick="goHome()">← Accueil</button>
-
-<div class="profession-title">
-  <h2>🏍️ VMDTR / CPA</h2>
-  <button class="favorite-button" onclick="toggleFavorite('vmdtr')">☆</button>
-</div>
-
-<details class="card vmdtr-border" open>
-<summary>VMDTR — Documents</summary>
-<div class="card-body">
-
-<ul>
-<li>Carte professionnelle VMDTR.</li>
-<li>Attestation préfectorale d'aptitude physique.</li>
-<li>Vignette bleue.</li>
-<li>Réservation préalable.</li>
-<li>RC professionnelle.</li>
-<li><strong>Assurance du véhicule couvrant le transport de personnes à titre onéreux.</strong></li>
-<li>Documents du véhicule et entretien applicables.</li>
-</ul>
-
-</div>
-</details>
-
-<details class="card">
-<summary>Particularités VMDTR</summary>
-<div class="card-body">
-
-<ul>
-<li>Deux ou trois roues motorisés.</li>
-<li>Un passager à la fois selon le régime présenté.</li>
-<li>Pas de compteur horokilométrique.</li>
-<li>Prix forfaitaire fixé lors de la réservation.</li>
-<li>Réservation préalable.</li>
-<li>Absence de maraude.</li>
-</ul>
-
-</div>
-</details>
-
-<details class="card">
-<summary>Vignette bleue</summary>
-<div class="card-body">
-
-<p>
-La vignette bleue permet d'identifier le VMDTR.
-Elle est distincte de la vignette rouge VTC et des vignettes
-violettes LOTI.
-</p>
-
-</div>
-</details>
-
-<details class="card">
-<summary>CPA — vélo-taxi</summary>
-<div class="card-body">
-
-<p>
-Le CPA correspond au cycle à pédalage assisté présenté dans le manuel,
-avec moteur auxiliaire ≤ 0,25 kW.
-</p>
-
-<p>
-Le conducteur est dispensé de carte professionnelle individuelle.
-Les obligations sont notamment portées par l'entreprise exploitante.
-</p>
-
-<div class="warning" style="padding:10px;border-radius:10px">
-<strong>Point important :</strong>
-ne pas relever l'absence de carte professionnelle individuelle
-comme infraction pour un conducteur CPA.
-</div>
-
-</div>
-</details>
-
-</section>
-
-
-<!-- ========================================================= -->
-<!-- INFRACTIONS -->
-<!-- ========================================================= -->
-
-<section id="infractions" class="view">
-
-<button class="back-button" onclick="goHome()">← Accueil</button>
-
-<h2>⚖️ Infractions / NATINF</h2>
-
-<div class="card warning">
-<div class="card-body">
-<strong>Outil d'aide à la qualification.</strong>
-<br>
-Les références ci-dessous sont celles reprises dans le manuel.
-Avant un PV, vérifier la qualification et le NATINF dans la base
-à jour, particulièrement lorsqu'une réforme récente est intervenue.
-</div>
-</div>
-
-<input
-  id="natinf-search"
-  class="search-box"
-  placeholder="Rechercher un NATINF ou une infraction…"
-  oninput="filterNatinf()"
->
-
-<div id="natinf-list"></div>
-
-</section>
-
-
-<!-- ========================================================= -->
-<!-- REDACTION -->
-<!-- ========================================================= -->
-
-<section id="redaction" class="view">
-
-<button class="back-button" onclick="goHome()">← Accueil</button>
-
-<h2>📝 Rédaction</h2>
-
-<div class="card info">
-<div class="card-body">
-<strong>Décrire avant de qualifier.</strong>
-<br>
-L'application doit aider à produire une constatation précise,
-pas remplacer l'appréciation de l'agent.
-</div>
-</div>
-
-<details class="card" open>
-<summary>Trame de constatation</summary>
-<div class="card-body">
-
-<ol>
-<li>Lieu.</li>
-<li>Date / heure.</li>
-<li>Motif initial de l'intervention.</li>
-<li>Véhicule / immatriculation.</li>
-<li>Conducteur.</li>
-<li>Statut revendiqué.</li>
-<li>Documents présentés.</li>
-<li>État / anomalies constatées.</li>
-<li>Déclarations utiles.</li>
-<li>Vérifications effectuées.</li>
-<li>Photographies / références relevées.</li>
-<li>Qualification éventuelle.</li>
-<li>Suite donnée.</li>
-</ol>
-
-</div>
-</details>
-
-<details class="card">
-<summary>Rapport</summary>
-<div class="card-body">
-
-<p>
-Le rapport doit rester factuel, précis, daté et exploitable
-par l'autorité compétente.
-</p>
-
-<p>
-Lorsque la PM ne dispose pas de compétence pour constater
-directement une infraction déterminée, le rapport peut néanmoins
-servir à transmettre les constatations utiles à l'autorité compétente.
-</p>
-
-</div>
-</details>
-
-<details class="card">
-<summary>Document suspect</summary>
-<div class="card-body">
-
-<ul>
-<li>Décrire ce qui est présenté.</li>
-<li>Décrire la discordance.</li>
-<li>Ne pas écrire « faux » uniquement parce que le document paraît inhabituel.</li>
-<li>Relever les numéros / identités / SIREN.</li>
-<li>Vérifier les sources accessibles.</li>
-<li>Rendre compte lorsque nécessaire.</li>
-</ul>
-
-</div>
-</details>
-
-</section>
-
-
-<!-- ========================================================= -->
-<!-- DOCUMENTS / IMAGES -->
-<!-- ========================================================= -->
+<!-- ================= DOCUMENTS ================= -->
 
 <section id="documents" class="view">
 
-<button class="back-button" onclick="goHome()">← Accueil</button>
+  <button class="back" onclick="goHome()">← Accueil</button>
 
-<h2>🪪 Documents à reconnaître</h2>
+  <h2>🪪 Documents / identification visuelle</h2>
 
-<div class="card info">
-<div class="card-body">
-<strong>Appuyer sur une image pour l'ouvrir en grand.</strong>
-<br>
-Les images du manuel peuvent être placées dans le dossier
-<strong>images/</strong> avec les noms indiqués ci-dessous.
-</div>
-</div>
+  <p class="muted">
+    Les images doivent être placées dans le dossier
+    <b>images/</b> à côté du fichier HTML.
+  </p>
 
-<div class="image-card">
-<img
- src="images/carte-taxi.jpg"
- alt="Carte professionnelle Taxi"
- onclick="openImage(this.src,this.alt)"
- onerror="imageFallback(this)"
->
-<div class="image-caption">
-<strong>Carte professionnelle Taxi</strong>
-<small>
-À vérifier : identité, photographie, numéro, validité et cohérence
-avec le conducteur.
-</small>
-</div>
-</div>
-
-<div class="image-card">
-<img
- src="images/carte-vtc.jpg"
- alt="Carte professionnelle VTC"
- onclick="openImage(this.src,this.alt)"
- onerror="imageFallback(this)"
->
-<div class="image-caption">
-<strong>Carte professionnelle VTC</strong>
-<small>
-À vérifier : identité, photographie, numéro, validité et cohérence
-avec le conducteur.
-</small>
-</div>
-</div>
-
-<div class="image-card">
-<img
- src="images/vignette-vtc.jpg"
- alt="Vignette VTC rouge"
- onclick="openImage(this.src,this.alt)"
- onerror="imageFallback(this)"
->
-<div class="image-caption">
-<strong>Vignette VTC rouge</strong>
-<small>
-À vérifier : numéro REVTC / EVTC, immatriculation et présence
-avant + arrière.
-</small>
-</div>
-</div>
-
-<div class="image-card">
-<img
- src="images/vignette-loti.jpg"
- alt="Vignette LOTI violette"
- onclick="openImage(this.src,this.alt)"
- onerror="imageFallback(this)"
->
-<div class="image-caption">
-<strong>Vignette LOTI violette</strong>
-<small>
-À vérifier : numéro, présence avant + arrière et cohérence
-avec la licence / copie conforme.
-</small>
-</div>
-</div>
-
-<div class="image-card">
-<img
- src="images/attestation-aptitude.jpg"
- alt="Attestation préfectorale d'aptitude physique"
- onclick="openImage(this.src,this.alt)"
- onerror="imageFallback(this)"
->
-<div class="image-caption">
-<strong>Attestation d'aptitude physique</strong>
-<small>
-À distinguer de la carte professionnelle.
-</small>
-</div>
-</div>
-
-<div class="image-card">
-<img
- src="images/copie-conforme-loti.jpg"
- alt="Copie conforme LOTI"
- onclick="openImage(this.src,this.alt)"
- onerror="imageFallback(this)"
->
-<div class="image-caption">
-<strong>Copie conforme LOTI</strong>
-<small>
-À vérifier : numéro, exploitant, véhicule et concordance avec
-la licence.
-</small>
-</div>
-</div>
-
-<div class="image-card">
-<img
- src="images/bon-commande-vtc.jpg"
- alt="Bon de commande VTC"
- onclick="openImage(this.src,this.alt)"
- onerror="imageFallback(this)"
->
-<div class="image-caption">
-<strong>Bon de commande VTC</strong>
-<small>
-À vérifier : réservation préalable, client, date/heure,
-lieu de prise en charge et cohérence de la course.
-</small>
-</div>
-</div>
-
-<div class="image-card">
-<img
- src="images/billet-collectif-loti.jpg"
- alt="Billet collectif LOTI"
- onclick="openImage(this.src,this.alt)"
- onerror="imageFallback(this)"
->
-<div class="image-caption">
-<strong>Billet collectif LOTI</strong>
-<small>
-À vérifier : groupe constitué avant le départ et cohérence
-de la prestation.
-</small>
-</div>
-</div>
-
-<div class="image-card">
-<img
- src="images/ads-taxi.jpg"
- alt="ADS Taxi"
- onclick="openImage(this.src,this.alt)"
- onerror="imageFallback(this)"
->
-<div class="image-caption">
-<strong>ADS Taxi</strong>
-<small>
-À vérifier : numéro, commune de rattachement, titulaire et
-concordance avec le véhicule.
-</small>
-</div>
-</div>
-
-<div class="image-card">
-<img
- src="images/carte-vmdtr.jpg"
- alt="Carte professionnelle VMDTR"
- onclick="openImage(this.src,this.alt)"
- onerror="imageFallback(this)"
->
-<div class="image-caption">
-<strong>Carte professionnelle VMDTR</strong>
-<small>
-À vérifier : identité, photographie, numéro et validité.
-</small>
-</div>
-</div>
-
-<div class="image-card">
-<img
- src="images/vignette-vmdtr.jpg"
- alt="Vignette bleue VMDTR"
- onclick="openImage(this.src,this.alt)"
- onerror="imageFallback(this)"
->
-<div class="image-caption">
-<strong>Vignette bleue VMDTR</strong>
-<small>
-À distinguer de la vignette rouge VTC et des vignettes violettes LOTI.
-</small>
-</div>
-</div>
+  <div id="documentsList"></div>
 
 </section>
 
 
-<!-- ========================================================= -->
-<!-- FAVORIS -->
-<!-- ========================================================= -->
+<!-- ================= REDACTION ================= -->
 
-<section id="favoris" class="view">
+<section id="redaction" class="view">
 
-<button class="back-button" onclick="goHome()">← Accueil</button>
+  <button class="back" onclick="goHome()">← Accueil</button>
 
-<h2>⭐ Favoris</h2>
+  <h2>📝 Rédaction</h2>
 
-<div id="favorites-list"></div>
+  <div class="card">
 
-</section>
+    <h3>Principe</h3>
 
+    <p>
+      Décrire les faits précisément avant de qualifier.
+    </p>
 
-<!-- ========================================================= -->
-<!-- ANNEXES -->
-<!-- ========================================================= -->
+    <div class="notice">
+      <b>Contrôler → Vérifier → Qualifier → Rédiger</b>
+    </div>
 
-<section id="annexes" class="view">
+    <p class="muted small">
+      Éviter les formulations affirmant un faux ou une infraction lorsque
+      les vérifications ne sont pas terminées. En cas de doute sérieux,
+      décrire la discordance constatée et transmettre à l'OPJ.
+    </p>
 
-<button class="back-button" onclick="goHome()">← Accueil</button>
+  </div>
 
-<h2>🔗 Annexes / ressources</h2>
+  <div class="card">
 
-<div class="card">
-<div class="card-header">REVTC</div>
-<div class="card-body">
-<p>
-Recherche officielle du registre des exploitants VTC.
-</p>
+    <h3>Modèle de rapport</h3>
 
-<a
- href="https://registre-vtc.developpement-durable.gouv.fr/public/recherche-simple/init-modif"
- target="_blank"
- rel="noopener"
->
-Ouvrir la recherche REVTC ↗
-</a>
-</div>
-</div>
+    <textarea id="reportText" class="copybox">
+Nous, [grade, nom, qualité d'APJA], en service à [lieu], le [date] à [heure],
+avons procédé au contrôle du véhicule immatriculé [immatriculation],
+de moins de 10 places, exerçant l'activité déclarée de [Taxi / VTC / LOTI].
 
-<div class="card">
-<div class="card-header">Registre national des transporteurs</div>
-<div class="card-body">
+Le conducteur, identifié comme étant M./Mme [identité], a présenté les
+documents suivants : [documents].
 
-<p>
-Registre électronique des entreprises de transport routier.
-</p>
+Nous avons constaté les éléments suivants :
+[description factuelle des constatations].
 
-<a
- href="https://www2.transports.developpement-durable.gouv.fr/registres/voyageurs/"
- target="_blank"
- rel="noopener"
->
-Ouvrir le registre des transporteurs ↗
-</a>
+Le conducteur a déclaré :
+[déclarations].
 
-</div>
-</div>
+Les passagers, interrogés séparément lorsque cela était possible, ont déclaré :
+[déclarations].
 
-<div class="card">
-<div class="card-header">Légifrance</div>
-<div class="card-body">
+Ces faits sont susceptibles de constituer :
+[qualification éventuelle / NATINF à confirmer].
 
-<a
- href="https://www.legifrance.gouv.fr/codes/id/LEGISCTA000023083939"
- target="_blank"
- rel="noopener"
->
-Code des transports — T3P ↗
-</a>
+Suite donnée :
+[PV / rapport / transmission OPJ / transmission service compétent].
+    </textarea>
 
-</div>
-</div>
+    <button class="primary"
+            onclick="copyReport()">
+      📋 Copier le rapport
+    </button>
 
-<div class="card">
-<div class="card-header">Retour / contact</div>
-<div class="card-body">
-
-<a href="mailto:retour.guidet3p@gmail.com">
-retour.guidet3p@gmail.com
-</a>
-
-</div>
-</div>
+  </div>
 
 </section>
 
 
-<!-- ========================================================= -->
-<!-- DOUTE -->
-<!-- ========================================================= -->
+<!-- ================= DOUTE ================= -->
 
 <section id="doute" class="view">
 
-<button class="back-button" onclick="goHome()">← Accueil</button>
+  <button class="back" onclick="goHome()">← Accueil</button>
 
-<h2>⚠️ J'ai un doute</h2>
+  <h2>⚠️ Doute documentaire</h2>
 
-<div class="card danger">
-<div class="card-body">
-<strong>Ne pas surqualifier.</strong>
-<br>
-Décrire → vérifier → relever → rendre compte.
-</div>
-</div>
+  <div class="card">
 
-<details class="card" open>
-<summary>Document suspect</summary>
-<div class="card-body">
+    <h3>Document suspect</h3>
 
-<ol>
-<li>Relever précisément la discordance.</li>
-<li>Comparer les numéros / identités / SIREN.</li>
-<li>Vérifier les registres accessibles.</li>
-<li>Photographier / relever les références si légalement possible.</li>
-<li>Ne pas saisir ou retenir un document sans base légale.</li>
-<li>Rendre compte à l'OPJ / service compétent.</li>
-</ol>
+    <ol>
+      <li>Ne pas conclure immédiatement à un faux.</li>
+      <li>Relever précisément les références.</li>
+      <li>Photographier lorsque le cadre juridique le permet.</li>
+      <li>Vérifier les données disponibles dans le registre compétent.</li>
+      <li>Comparer identité, SIREN, numéro de licence/REVTC et véhicule.</li>
+      <li>Décrire une « discordance constatée » si la vérification n'est pas terminée.</li>
+      <li>Transmettre à l'OPJ lorsque la situation le justifie.</li>
+    </ol>
 
-</div>
-</details>
+  </div>
 
-<details class="card">
-<summary>VTC + autre signalétique</summary>
-<div class="card-body">
+  <div class="card">
 
-<p>
-La présence de plusieurs signalétiques ne constitue pas automatiquement
-une infraction.
-</p>
+    <h3>Registres officiels</h3>
 
-<p>
-Vérifier l'exploitant, les titres, le véhicule et l'activité réellement
-exercée au moment du contrôle.
-</p>
+    <p>
+      <a class="link"
+         target="_blank"
+         href="https://registre-vtc.developpement-durable.gouv.fr/public/recherche-simple/init-modif">
+         🔗 Registre REVTC
+      </a>
+    </p>
 
-</div>
-</details>
+    <p>
+      <a class="link"
+         target="_blank"
+         href="https://www2.transports.developpement-durable.gouv.fr/registres/voyageurs/">
+         🔗 Registre national des transporteurs
+      </a>
+    </p>
 
-<details class="card">
-<summary>LOTI + VTC</summary>
-<div class="card-body">
+    <p>
+      <a class="link"
+         target="_blank"
+         href="https://www.legifrance.gouv.fr/codes/id/LEGISCTA000023083939">
+         🔗 Légifrance — T3P
+      </a>
+    </p>
 
-<p>
-La présence simultanée de signalétiques LOTI et VTC doit conduire
-à approfondir la vérification.
-</p>
-
-<p>
-Vérifier notamment la licence, la copie conforme, les vignettes,
-le REVTC, l'exploitant et l'activité exercée.
-</p>
-
-</div>
-</details>
-
-<details class="card">
-<summary>Assurance incohérente</summary>
-<div class="card-body">
-
-<p>
-Relever l'identité de l'assuré, l'exploitant, les références
-de l'attestation et les discordances.
-</p>
-
-<p>
-Pour VTC et LOTI, contrôler la cohérence avec l'exploitant
-réel plutôt que de simplement comparer un nom isolé.
-</p>
-
-</div>
-</details>
+  </div>
 
 </section>
 
 
-<!-- ========================================================= -->
-<!-- A PROPOS -->
-<!-- ========================================================= -->
+<!-- ================= FAVORIS ================= -->
 
-<section id="apropos" class="view">
+<section id="favorites" class="view">
 
-<button class="back-button" onclick="goHome()">← Accueil</button>
+  <button class="back" onclick="goHome()">← Accueil</button>
 
-<h2>ℹ️ À propos</h2>
+  <h2>⭐ Favoris</h2>
 
-<div class="card">
-<div class="card-body">
+  <div id="favoritesList"></div>
 
-<strong>T3P — Police Municipale</strong>
+</section>
 
-<p>
-Application opérationnelle issue du Manuel T3P Police Municipale.
-</p>
 
-<p>
-Version application : <strong>V3</strong>
-</p>
+<!-- ================= À PROPOS ================= -->
 
-</div>
-</div>
+<section id="about" class="view">
 
-<div class="card">
-<div class="card-header">📖 Manuel complet</div>
-<div class="card-body">
+  <button class="back" onclick="goHome()">← Accueil</button>
 
-<p>
-L'application est conçue pour le contrôle terrain.
-Le manuel reste la référence complète pour approfondir une règle,
-retrouver une explication ou consulter les annexes.
-</p>
+  <h2>ℹ️ À propos</h2>
 
-<p>
-Il est recommandé de conserver également le PDF smartphone
-et la version ordinateur comme documents de référence.
-</p>
+  <div class="card">
 
-</div>
-</div>
+    <h3>Guide opérationnel T3P</h3>
 
-<div class="card">
-<div class="card-header">💬 Proposer une amélioration</div>
-<div class="card-body">
+    <p>
+      Outil d'aide au contrôle des transports publics particuliers
+      de personnes destiné aux agents de Police Municipale.
+    </p>
 
-<p>
-Vous avez constaté un document manquant, une difficulté de contrôle,
-une information à améliorer ou une idée pour gagner du temps ?
-</p>
+    <p class="muted small">
+      L'application ne remplace pas les textes réglementaires, les bases
+      officielles ou les instructions de la hiérarchie et de l'OPJ compétent.
+    </p>
 
-<a href="mailto:retour.guidet3p@gmail.com?subject=Retour%20application%20T3P">
-📧 Envoyer un retour
-</a>
+  </div>
 
-</div>
-</div>
+  <div class="card">
 
-<div class="card">
-<div class="card-header">🆕 Historique</div>
-<div class="card-body">
+    <h3>Sources officielles</h3>
 
-<strong>V3</strong>
-<ul>
-<li>Navigation plein écran.</li>
-<li>Contrôle dynamique par statut.</li>
-<li>Statuts conforme / absent / non conforme / à vérifier.</li>
-<li>Analyse des anomalies.</li>
-<li>Infractions / NATINF associées.</li>
-<li>Mode nuit.</li>
-<li>Favoris.</li>
-<li>Recherche.</li>
-<li>Images zoomables.</li>
-<li>Points à vérifier sur les documents.</li>
-<li>Liens REVTC et registre des transporteurs.</li>
-<li>Retour utilisateur.</li>
-</ul>
+    <p>
+      <a class="link"
+         target="_blank"
+         href="https://www.legifrance.gouv.fr/codes/id/LEGISCTA000023083939">
+         Légifrance — Code des transports / T3P
+      </a>
+    </p>
 
-</div>
-</div>
+    <p>
+      <a class="link"
+         target="_blank"
+         href="https://registre-vtc.developpement-durable.gouv.fr/public/recherche-simple/init-modif">
+         REVTC — recherche officielle
+      </a>
+    </p>
+
+    <p>
+      <a class="link"
+         target="_blank"
+         href="https://www2.transports.developpement-durable.gouv.fr/registres/voyageurs/">
+         Registre national des transporteurs
+      </a>
+    </p>
+
+  </div>
+
+  <div class="card">
+
+    <h3>📖 Manuel PDF</h3>
+
+    <p class="muted small">
+      Si le PDF est placé dans le même dossier que l'application,
+      le bouton ci-dessous permet de l'ouvrir.
+    </p>
+
+    <a class="primary"
+       style="display:block;text-align:center;text-decoration:none"
+       href="Manuel_T3P_Police_Municipale_Smartphone.pdf"
+       target="_blank">
+       📖 Ouvrir le manuel PDF
+    </a>
+
+  </div>
+
+  <div class="card">
+
+    <h3>💬 Retour / amélioration</h3>
+
+    <p class="muted small">
+      Une erreur, un élément manquant ou une amélioration à proposer ?
+      Utilisez cette adresse :
+    </p>
+
+    <a class="primary"
+       style="display:block;text-align:center;text-decoration:none"
+       href="mailto:retour.guidet3p@gmail.com?subject=Retour%20application%20T3P">
+       ✉️ retour.guidet3p@gmail.com
+    </a>
+
+  </div>
 
 </section>
 
 </main>
 
 
-<!-- ========================================================= -->
-<!-- MODAL IMAGE -->
-<!-- ========================================================= -->
+<!-- ================= FOOTER ================= -->
 
-<div id="image-modal" class="modal" onclick="closeImage(event)">
-  <div class="modal-content">
-    <button class="modal-close" onclick="closeImage(event)">×</button>
-    <img id="modal-image" class="modal-image" alt="">
+<nav class="footer-nav">
+  <button onclick="goHome()">⌂ Accueil</button>
+  <button onclick="startControl()">🚨 Contrôle</button>
+  <button onclick="openSection('favorites')">⭐ Favoris</button>
+</nav>
+
+
+<!-- ================= MODAL IMAGE ================= -->
+
+<div id="imageModal" class="modal"
+     onclick="closeImage(event)">
+
+  <button class="modal-close"
+          onclick="closeImage()">×</button>
+
+  <img id="modalImage" src="" alt="Document">
+
+  <div class="zoom-controls"
+       onclick="event.stopPropagation()">
+    <button onclick="zoomImage(-0.2)">−</button>
+    <button onclick="zoomImage(0.2)">+</button>
+    <button onclick="resetZoom()">↺</button>
   </div>
+
 </div>
-
-
-<div id="toast" class="toast"></div>
 
 
 <script>
 
 /* =========================================================
-   DONNEES
-========================================================= */
-
-const professions = {
-
-  taxi:{
-    title:"🚕 TAXI — Documents à contrôler",
-    className:"taxi-border",
-    documents:[
-      {
-        id:"taxi-carte",
-        name:"Carte professionnelle",
-        help:"Carte du conducteur.",
-        points:[
-          "Identité du conducteur",
-          "Photographie",
-          "Numéro",
-          "Validité"
-        ]
-      },
-      {
-        id:"taxi-aptitude",
-        name:"Attestation d'aptitude physique",
-        help:"Document distinct de la carte professionnelle.",
-        points:[
-          "Identité",
-          "Validité",
-          "Cohérence avec le conducteur"
-        ]
-      },
-      {
-        id:"taxi-ads",
-        name:"ADS / autorisation de stationnement",
-        help:"Titre lié au véhicule / exploitation.",
-        points:[
-          "Numéro",
-          "Commune de rattachement",
-          "Titulaire",
-          "Concordance avec le véhicule"
-        ]
-      },
-      {
-        id:"taxi-assurance",
-        name:"Assurance",
-        help:"Couverture adaptée au transport de personnes à titre onéreux.",
-        points:[
-          "Assuré",
-          "Exploitant",
-          "Véhicule",
-          "Période de validité"
-        ]
-      },
-      {
-        id:"taxi-metrologie",
-        name:"Carnet métrologique",
-        help:"Document lié au taximètre.",
-        points:[
-          "Installation",
-          "Vérifications",
-          "Changements de tarif"
-        ]
-      }
-    ]
-  },
-
-  vtc:{
-    title:"🚗 VTC — Documents à contrôler",
-    className:"vtc-border",
-    documents:[
-      {
-        id:"vtc-carte",
-        name:"Carte professionnelle VTC",
-        help:"Carte individuelle du conducteur.",
-        points:[
-          "Identité",
-          "Photographie",
-          "Numéro",
-          "Validité"
-        ]
-      },
-      {
-        id:"vtc-aptitude",
-        name:"Attestation d'aptitude physique",
-        help:"Attestation distincte de la carte professionnelle.",
-        points:[
-          "Identité",
-          "Validité",
-          "Cohérence"
-        ]
-      },
-      {
-        id:"vtc-revtc",
-        name:"REVTC",
-        help:"Inscription de l'exploitant.",
-        points:[
-          "Exploitant",
-          "Numéro REVTC",
-          "Véhicule",
-          "Cohérence avec la vignette"
-        ]
-      },
-      {
-        id:"vtc-vignette",
-        name:"Vignette REVTC rouge",
-        help:"Signalétique avant + arrière.",
-        points:[
-          "Numéro EVTC / REVTC",
-          "Immatriculation",
-          "Avant",
-          "Arrière"
-        ]
-      },
-      {
-        id:"vtc-assurance",
-        name:"RC professionnelle",
-        help:"Assurance de l'exploitant.",
-        points:[
-          "Nom de l'exploitant",
-          "Références",
-          "Validité",
-          "Cohérence avec REVTC"
-        ]
-      },
-      {
-        id:"vtc-reservation",
-        name:"Réservation préalable",
-        help:"Bon de commande ou justificatif équivalent.",
-        points:[
-          "Client",
-          "Date",
-          "Heure",
-          "Lieu de prise en charge"
-        ]
-      },
-      {
-        id:"vtc-lien",
-        name:"Lien exploitant / chauffeur",
-        help:"À utiliser si le conducteur n'est pas l'exploitant.",
-        points:[
-          "Attestation de lien",
-          "Bulletin de salaire",
-          "Contrat ou justificatif pertinent"
-        ],
-        onlyDriver:"salarie"
-      }
-    ]
-  },
-
-  loti:{
-    title:"🚌 LOTI — Documents à contrôler",
-    className:"loti-border",
-    documents:[
-      {
-        id:"loti-licence",
-        name:"Licence de transport intérieur",
-        help:"Titre de l'entreprise exploitante.",
-        points:[
-          "Numéro",
-          "Titulaire",
-          "Validité",
-          "Cohérence"
-        ]
-      },
-      {
-        id:"loti-copie",
-        name:"Copie conforme",
-        help:"Copie numérotée conservée à bord.",
-        points:[
-          "Numéro",
-          "Exploitant",
-          "Véhicule",
-          "Concordance avec la licence"
-        ]
-      },
-      {
-        id:"loti-vignettes",
-        name:"Vignettes LOTI violettes",
-        help:"Signalétique avant + arrière.",
-        points:[
-          "Présence avant",
-          "Présence arrière",
-          "Numéro",
-          "Cohérence avec le titre"
-        ]
-      },
-      {
-        id:"loti-aptitude",
-        name:"Attestation d'aptitude physique",
-        help:"Document du conducteur.",
-        points:[
-          "Identité",
-          "Validité",
-          "Cohérence"
-        ]
-      },
-      {
-        id:"loti-assurance",
-        name:"Assurance professionnelle",
-        help:"Doit couvrir le transport de personnes à titre onéreux.",
-        points:[
-          "Exploitant assuré",
-          "Activité couverte",
-          "Validité",
-          "Cohérence avec la licence"
-        ]
-      },
-      {
-        id:"loti-billet",
-        name:"Billet collectif",
-        help:"Groupe constitué et réservé avant le départ.",
-        points:[
-          "Groupe",
-          "Nombre de personnes",
-          "Réservation",
-          "Cohérence de la prestation"
-        ]
-      }
-    ]
-  },
-
-  vmdtr:{
-    title:"🏍️ VMDTR — Documents à contrôler",
-    className:"vmdtr-border",
-    documents:[
-      {
-        id:"vmdtr-carte",
-        name:"Carte professionnelle VMDTR",
-        help:"Carte individuelle du conducteur.",
-        points:[
-          "Identité",
-          "Numéro",
-          "Validité"
-        ]
-      },
-      {
-        id:"vmdtr-aptitude",
-        name:"Attestation d'aptitude physique",
-        help:"Document du conducteur.",
-        points:[
-          "Identité",
-          "Validité"
-        ]
-      },
-      {
-        id:"vmdtr-vignette",
-        name:"Vignette bleue",
-        help:"Signalétique VMDTR.",
-        points:[
-          "Présence",
-          "Cohérence"
-        ]
-      },
-      {
-        id:"vmdtr-reservation",
-        name:"Réservation préalable",
-        help:"Course réservée avant prise en charge.",
-        points:[
-          "Client",
-          "Date",
-          "Heure",
-          "Lieu"
-        ]
-      },
-      {
-        id:"vmdtr-assurance",
-        name:"Assurance",
-        help:"RC pro + véhicule couvrant le transport à titre onéreux.",
-        points:[
-          "Exploitant",
-          "Véhicule",
-          "Transport de personnes",
-          "Validité"
-        ]
-      }
-    ]
-  },
-
-  cpa:{
-    title:"🚲 CPA — Contrôle",
-    className:"vmdtr-border",
-    documents:[
-      {
-        id:"cpa-exploitant",
-        name:"Exploitant / signalétique",
-        help:"Contrôles portant principalement sur l'entreprise exploitante.",
-        points:[
-          "Exploitant",
-          "Signalétique",
-          "Véhicule"
-        ]
-      },
-      {
-        id:"cpa-reservation",
-        name:"Réservation préalable",
-        help:"Vérifier la réservation de la prestation.",
-        points:[
-          "Client",
-          "Date",
-          "Heure"
-        ]
-      },
-      {
-        id:"cpa-assurance",
-        name:"Assurance",
-        help:"Couverture de l'activité et du véhicule.",
-        points:[
-          "Exploitant",
-          "Véhicule",
-          "Activité"
-        ]
-      }
-    ]
-  }
-};
-
-
-/* =========================================================
-   NATINF
-========================================================= */
-
-const natinfData = [
-
-  {
-    code:"30761",
-    statut:"Taxi",
-    title:"Exercice de l'activité de conducteur de taxi sans carte professionnelle valide",
-    warning:false
-  },
-
-  {
-    code:"30760",
-    statut:"Taxi / LOTI",
-    title:"Référence du manuel relative à la carte professionnelle apposée / visible de l'extérieur",
-    warning:true
-  },
-
-  {
-    code:"30763",
-    statut:"Taxi",
-    title:"Non-présentation immédiate de la carte professionnelle",
-    warning:false
-  },
-
-  {
-    code:"27777",
-    statut:"LOTI",
-    title:"Transport public routier de personnes sans copie conforme du titre administratif à bord",
-    warning:false
-  },
-
-  {
-    code:"7608",
-    statut:"LOTI",
-    title:"Utilisation d'une licence, copie conforme ou autorisation de transport routier périmée, suspendue ou déclarée perdue",
-    warning:false
-  },
-
-  {
-    code:"11991",
-    statut:"LOTI",
-    title:"Exercice de l'activité de transporteur public routier de personnes sans inscription au registre",
-    warning:false
-  },
-
-  {
-    code:"496",
-    statut:"Taxi / VTC / LOTI",
-    title:"Usage de faux document administratif — article 441-1 du Code pénal",
-    warning:false
-  },
-
-  {
-    code:"30775",
-    statut:"LOTI",
-    title:"Arrêt ou stationnement en quête de clients",
-    warning:false
-  },
-
-  {
-    code:"28159",
-    statut:"VMDTR",
-    title:"VMDTR sans attestation d'aptitude physique",
-    warning:false
-  },
-
-  {
-    code:"28156",
-    statut:"VMDTR",
-    title:"Non-présentation de la carte professionnelle VMDTR",
-    warning:false
-  }
-
-];
-
-
-/* =========================================================
-   ETAT
-========================================================= */
-
-let currentProfession = null;
-let currentDriverStatus = "exploitant";
-let controlState = {};
-let favorites = JSON.parse(localStorage.getItem("t3pFavorites") || "[]");
-
-
-/* =========================================================
    NAVIGATION
 ========================================================= */
 
-const views = document.querySelectorAll(".view");
+const views = [
+  "home",
+  "taxi",
+  "vtc",
+  "loti",
+  "vmdtr",
+  "control",
+  "natinf",
+  "documents",
+  "redaction",
+  "doute",
+  "favorites",
+  "about"
+];
 
-function openView(id){
+function openSection(id){
 
-  views.forEach(view=>{
-    view.classList.remove("active");
+  views.forEach(v=>{
+    const el=document.getElementById(v);
+    if(el) el.classList.remove("active");
   });
 
   const target=document.getElementById(id);
 
-  if(target){
-    target.classList.add("active");
-    window.scrollTo({
-      top:0,
-      behavior:"instant"
-    });
-
-    history.replaceState(null,"","#"+id);
+  if(!target){
+    goHome();
+    return;
   }
 
-  if(id==="favoris"){
+  target.classList.add("active");
+
+  /*
+    Correction importante :
+    chaque nouvelle vue revient systématiquement
+    en haut de page.
+  */
+  window.scrollTo({
+    top:0,
+    left:0,
+    behavior:"instant"
+  });
+
+  document.documentElement.scrollTop=0;
+  document.body.scrollTop=0;
+
+  if(id==="natinf"){
+    renderNatinf("");
+  }
+
+  if(id==="documents"){
+    renderDocuments();
+  }
+
+  if(id==="favorites"){
     renderFavorites();
   }
 
-  if(id==="infractions"){
-    renderNatinf();
-  }
+  history.replaceState(null,"","#"+id);
 }
 
 function goHome(){
-  openView("home");
+  openSection("home");
 }
 
-function openControl(){
-  openView("control");
-}
+window.addEventListener("load",()=>{
+  const hash=location.hash.replace("#","");
 
-window.addEventListener("hashchange",()=>{
-  const id=location.hash.replace("#","");
-
-  if(document.getElementById(id)){
-    openView(id);
+  if(hash && views.includes(hash)){
+    openSection(hash);
+  }else{
+    goHome();
   }
 });
 
 
 /* =========================================================
-   CONTROLE
+   MODE NUIT
 ========================================================= */
 
-function startControl(profession){
+function toggleTheme(){
 
-  currentProfession=profession;
-  currentDriverStatus="exploitant";
-  controlState={};
+  const current=
+    document.documentElement.getAttribute("data-theme");
 
-  const data=professions[profession];
+  const next=current==="dark" ? "light" : "dark";
 
-  document.getElementById("control-title").innerHTML=`
-    <div class="card ${data.className}">
-      <div class="card-body">
-        <h2>${data.title}</h2>
-        <div class="small muted">
-          Conforme / absent / non conforme / à vérifier.
-        </div>
-      </div>
-    </div>
-  `;
+  document.documentElement.setAttribute("data-theme",next);
 
-  updateDriverButtons();
-  renderControlDocuments();
+  localStorage.setItem("t3pTheme",next);
 
-  document.getElementById("analysis-result").innerHTML="";
-
-  openView("dynamic-control");
+  document.getElementById("themeBtn").textContent=
+    next==="dark" ? "☀️" : "🌙";
 }
 
-function setDriverStatus(status){
+(function(){
 
-  currentDriverStatus=status;
+  const saved=localStorage.getItem("t3pTheme");
 
-  updateDriverButtons();
-  renderControlDocuments();
-}
+  if(saved){
+    document.documentElement.setAttribute("data-theme",saved);
 
-function updateDriverButtons(){
+    const btn=document.getElementById("themeBtn");
 
-  const buttons={
-    exploitant:document.getElementById("driver-exploitant"),
-    salarie:document.getElementById("driver-salarie"),
-    particulier:document.getElementById("driver-particulier"),
-    doute:document.getElementById("driver-doute")
-  };
-
-  Object.keys(buttons).forEach(key=>{
-    buttons[key].className="status-button";
-
-    if(key===currentDriverStatus){
-      buttons[key].classList.add(
-        key==="exploitant" ? "active-conforme" :
-        key==="salarie" ? "active-doute" :
-        key==="particulier" ? "active-absent" :
-        "active-nonconforme"
-      );
+    if(btn){
+      btn.textContent=saved==="dark" ? "☀️" : "🌙";
     }
-  });
-}
-
-function renderControlDocuments(){
-
-  const container=document.getElementById("documents-control");
-
-  if(!currentProfession){
-    container.innerHTML="";
-    return;
   }
 
-  const data=professions[currentProfession];
-
-  let html=`
-    <div class="card">
-      <div class="card-header">
-        Documents / éléments à contrôler
-      </div>
-      <div class="card-body">
-  `;
-
-  data.documents.forEach(doc=>{
-
-    if(doc.onlyDriver && doc.onlyDriver!==currentDriverStatus){
-      return;
-    }
-
-    const status=controlState[doc.id] || "";
-
-    html+=`
-      <div class="document-row">
-
-        <div class="document-name">
-          ${doc.name}
-        </div>
-
-        <div class="document-help">
-          ${doc.help}
-        </div>
-
-        <div class="document-buttons">
-
-          <button
-            class="${status==="conforme" ? "active-conforme" : ""}"
-            onclick="setDocumentStatus('${doc.id}','conforme')"
-          >
-            ✓ Conforme
-          </button>
-
-          <button
-            class="${status==="absent" ? "active-absent" : ""}"
-            onclick="setDocumentStatus('${doc.id}','absent')"
-          >
-            ! Absent
-          </button>
-
-          <button
-            class="${status==="nonconforme" ? "active-nonconforme" : ""}"
-            onclick="setDocumentStatus('${doc.id}','nonconforme')"
-          >
-            ✕ Problème
-          </button>
-
-          <button
-            class="${status==="doute" ? "active-doute" : ""}"
-            onclick="setDocumentStatus('${doc.id}','doute')"
-          >
-            ? Doute
-          </button>
-
-        </div>
-
-        <button
-          class="action-button"
-          style="margin-top:7px"
-          onclick="showDocumentPoints('${currentProfession}','${doc.id}')"
-        >
-          Points à vérifier
-        </button>
-
-      </div>
-    `;
-  });
-
-  html+=`
-      </div>
-    </div>
-  `;
-
-  container.innerHTML=html;
-}
-
-function setDocumentStatus(id,status){
-
-  controlState[id]=status;
-
-  renderControlDocuments();
-
-  const anomalies=Object.values(controlState)
-    .filter(x=>x==="absent" || x==="nonconforme" || x==="doute")
-    .length;
-
-  if(anomalies>0){
-    showToast(
-      anomalies+" anomalie"+(anomalies>1?"s":"")+" détectée"+(anomalies>1?"s":"")
-    );
-  }
-}
-
-function analyzeControl(){
-
-  const data=professions[currentProfession];
-
-  const anomalies=data.documents.filter(doc=>{
-    const s=controlState[doc.id];
-    return s==="absent" || s==="nonconforme" || s==="doute";
-  });
-
-  let html=`
-    <div class="card" style="margin-top:14px">
-      <div class="card-header">
-        Résultat du contrôle
-      </div>
-      <div class="card-body">
-  `;
-
-  if(anomalies.length===0){
-
-    html+=`
-      <div class="result" style="background:#edf8f1;border-color:#a5d2b7">
-        <strong>✓ Aucun problème signalé.</strong>
-        <br>
-        Le contrôle documentaire renseigné est conforme.
-      </div>
-    `;
-
-  }else{
-
-    html+=`
-      <div class="danger" style="padding:12px;border-radius:11px;margin-bottom:10px">
-        <strong>
-          ${anomalies.length}
-          anomalie${anomalies.length>1?"s":""}
-          à examiner
-        </strong>
-      </div>
-    `;
-
-    anomalies.forEach(doc=>{
-
-      html+=`
-        <div class="result">
-          <h3>${doc.name}</h3>
-          <span class="badge">
-            ${controlState[doc.id]==="absent" ? "Absent" :
-              controlState[doc.id]==="nonconforme" ? "Non conforme" :
-              "À vérifier"}
-          </span>
-
-          <div style="margin-top:8px">
-            ${suggestInfractions(currentProfession,doc.id)}
-          </div>
-        </div>
-      `;
-
-    });
-
-  }
-
-  html+=`
-        <hr>
-
-        <button
-          class="action-button primary"
-          onclick="openView('infractions')"
-        >
-          ⚖️ Voir toutes les infractions possibles
-        </button>
-
-        <button
-          class="action-button"
-          onclick="openView('redaction')"
-          style="margin-left:5px"
-        >
-          📝 Rédaction
-        </button>
-
-      </div>
-    </div>
-  `;
-
-  document.getElementById("analysis-result").innerHTML=html;
-
-  window.scrollTo({
-    top:document.getElementById("analysis-result").offsetTop-80,
-    behavior:"smooth"
-  });
-}
-
-function suggestInfractions(profession,documentId){
-
-  const mapping={
-
-    "loti-copie":[
-      "27777"
-    ],
-
-    "loti-licence":[
-      "7608",
-      "11991"
-    ],
-
-    "loti-vignettes":[
-      "30760"
-    ],
-
-    "loti-assurance":[],
-
-    "vtc-carte":[
-      "30763"
-    ],
-
-    "taxi-carte":[
-      "30761",
-      "30763"
-    ],
-
-    "vmdtr-carte":[
-      "28156"
-    ],
-
-    "vmdtr-aptitude":[
-      "28159"
-    ]
-
-  };
-
-  const codes=mapping[documentId] || [];
-
-  if(codes.length===0){
-
-    return `
-      <div class="small muted">
-        Pas de NATINF automatique associé à cette anomalie
-        dans cette version. Vérifier la réglementation et la base
-        NATINF avant qualification.
-      </div>
-    `;
-
-  }
-
-  return codes.map(code=>{
-
-    const n=natinfData.find(x=>x.code===code);
-
-    if(!n) return "";
-
-    return `
-      <div>
-        <span class="natinf">NATINF ${n.code}</span>
-        — ${n.title}
-        ${n.warning ? `<span class="badge">À vérifier</span>` : ""}
-      </div>
-    `;
-
-  }).join("");
-
-}
-
-
-/* =========================================================
-   DOCUMENT POINTS
-========================================================= */
-
-function showDocumentPoints(profession,documentId){
-
-  const doc=professions[profession].documents.find(
-    x=>x.id===documentId
-  );
-
-  if(!doc) return;
-
-  const points=doc.points.map(
-    p=>`<li>${p}</li>`
-  ).join("");
-
-  showToast("Points à vérifier : "+doc.name);
-
-  alert(
-    "POINTS À VÉRIFIER\n\n"+
-    doc.name+
-    "\n\n"+
-    doc.points.map(p=>"• "+p).join("\n")
-  );
-}
-
-
-/* =========================================================
-   NATINF
-========================================================= */
-
-function renderNatinf(filter=""){
-
-  const container=document.getElementById("natinf-list");
-
-  const q=filter.toLowerCase();
-
-  const list=natinfData.filter(n=>
-    !q ||
-    n.code.toLowerCase().includes(q) ||
-    n.statut.toLowerCase().includes(q) ||
-    n.title.toLowerCase().includes(q)
-  );
-
-  if(list.length===0){
-
-    container.innerHTML=`
-      <div class="card">
-        <div class="card-body">
-          Aucun résultat.
-        </div>
-      </div>
-    `;
-
-    return;
-  }
-
-  container.innerHTML=list.map(n=>`
-
-    <div class="result">
-
-      <div>
-        <span class="natinf">NATINF ${n.code}</span>
-        <span class="badge">${n.statut}</span>
-        ${n.warning ? `<span class="badge">Vérifier</span>` : ""}
-      </div>
-
-      <div style="margin-top:6px">
-        ${n.title}
-      </div>
-
-    </div>
-
-  `).join("");
-}
-
-function filterNatinf(){
-
-  const input=document.getElementById("natinf-search");
-
-  renderNatinf(input.value);
-}
+})();
 
 
 /* =========================================================
    FAVORIS
 ========================================================= */
 
+let favorites=
+  JSON.parse(localStorage.getItem("t3pFavorites") || "[]");
+
+const favoriteSections={
+  taxi:"🚕 Taxi",
+  vtc:"🚘 VTC",
+  loti:"🚌 LOTI",
+  vmdtr:"🏍️ VMDTR / CPA",
+  natinf:"⚖️ Infractions / NATINF",
+  documents:"🪪 Documents",
+  redaction:"📝 Rédaction",
+  doute:"⚠️ Doute documentaire"
+};
+
 function toggleFavorite(id){
 
   if(favorites.includes(id)){
     favorites=favorites.filter(x=>x!==id);
-    showToast("Retiré des favoris");
   }else{
     favorites.push(id);
-    showToast("Ajouté aux favoris");
   }
 
   localStorage.setItem(
@@ -2908,74 +1706,25 @@ function toggleFavorite(id){
     JSON.stringify(favorites)
   );
 
-  updateFavoriteButtons();
   renderFavorites();
-}
-
-function updateFavoriteButtons(){
-
-  document.querySelectorAll(".favorite-button").forEach(button=>{
-
-    const onclick=button.getAttribute("onclick");
-
-    if(!onclick) return;
-
-    const match=onclick.match(/'([^']+)'/);
-
-    if(!match) return;
-
-    const id=match[1];
-
-    button.textContent=
-      favorites.includes(id) ? "★" : "☆";
-
-    button.classList.toggle(
-      "favorite",
-      favorites.includes(id)
-    );
-  });
 }
 
 function renderFavorites(){
 
-  const container=document.getElementById("favorites-list");
+  const box=document.getElementById("favoritesList");
 
-  if(favorites.length===0){
-
-    container.innerHTML=`
-      <div class="card">
-        <div class="card-body">
-          Aucun favori pour le moment.
-        </div>
-      </div>
-    `;
-
+  if(!favorites.length){
+    box.innerHTML=
+      '<div class="card muted">Aucun favori enregistré.</div>';
     return;
   }
 
-  const labels={
-    taxi:"🚕 Taxi",
-    vtc:"🚗 VTC",
-    loti:"🚌 LOTI",
-    vmdtr:"🏍️ VMDTR / CPA"
-  };
-
-  container.innerHTML=favorites.map(id=>{
-
-    if(!labels[id]) return "";
-
-    return `
-      <button
-        class="menu-card"
-        style="width:100%;margin-bottom:8px"
-        onclick="openView('${id}')"
-      >
-        <strong>${labels[id]}</strong>
-        <small>Ouvrir la fiche</small>
-      </button>
-    `;
-
-  }).join("");
+  box.innerHTML=favorites.map(id=>`
+    <button class="menu-button"
+            onclick="openSection('${id}')">
+      ⭐ ${favoriteSections[id] || id}
+    </button>
+  `).join("");
 }
 
 
@@ -2984,199 +1733,1344 @@ function renderFavorites(){
 ========================================================= */
 
 const searchIndex=[
-
-  ["Taxi","taxi","ADS carte professionnelle taximètre tarif A B C D carnet métrologique ticket note assurance"],
-  ["VTC","vtc","REVTC vignette rouge réservation maraude salarié assurance contrat travail"],
-  ["LOTI","loti","licence copie conforme vignettes violettes billet collectif assurance SIREN registre"],
-  ["VMDTR","vmdtr","carte professionnelle vignette bleue assurance réservation"],
-  ["CPA","vmdtr","vélo taxi cycle pédalage assisté carte professionnelle"],
-  ["Infractions / NATINF","infractions","NATINF infraction qualification PV"],
-  ["Documents","documents","carte professionnelle vignette attestation copie conforme bon commande billet collectif ADS"],
-  ["Rédaction","redaction","rapport constatation rédaction"],
-  ["Doute","doute","faux SIREN document incohérence OPJ"],
-  ["Annexes","annexes","REVTC registre transporteurs Légifrance"],
-  ["À propos","apropos","retour amélioration email manuel version"]
-
+  {
+    id:"taxi",
+    title:"Taxi",
+    terms:"taxi ADS autorisation stationnement taximètre carnet métrologique tarif A B C D forfait ticket note TPE taxi relais maraude assurance aptitude"
+  },
+  {
+    id:"vtc",
+    title:"VTC",
+    terms:"VTC REVTC carte professionnelle aptitude physique vignette rouge réservation maraude électronique assurance salarié exploitant véhicule retour course"
+  },
+  {
+    id:"loti",
+    title:"LOTI",
+    terms:"LOTI licence copie conforme vignette violette billet collectif groupe SIREN assurance réservation maraude aptitude physique faux"
+  },
+  {
+    id:"vmdtr",
+    title:"VMDTR / CPA",
+    terms:"VMDTR moto vignette bleue aptitude physique réservation assurance passager CPA vélo taxi"
+  },
+  {
+    id:"natinf",
+    title:"Infractions / NATINF",
+    terms:"NATINF 22874 28159 27777 7608 11991 496 30775 30760 30763 27746 30766 30767 30769 30756 30899"
+  },
+  {
+    id:"documents",
+    title:"Documents / identification",
+    terms:"carte taxi carte VTC vignette VTC vignette LOTI aptitude copie conforme ticket bon commande billet collectif ADS VMDTR"
+  },
+  {
+    id:"redaction",
+    title:"Rédaction",
+    terms:"rapport rédaction PV constat faits OPJ"
+  },
+  {
+    id:"doute",
+    title:"Doute documentaire",
+    terms:"faux document SIREN discordance OPJ registre vérification"
+  }
 ];
 
-document.getElementById("search").addEventListener(
-  "input",
-  function(){
+function globalSearch(value){
 
-    const q=this.value.trim().toLowerCase();
+  const q=value.trim().toLowerCase();
 
-    const container=document.getElementById("search-results");
+  const box=document.getElementById("searchResults");
 
-    if(!q){
-      container.innerHTML="";
-      return;
-    }
-
-    const results=searchIndex.filter(item=>
-      item[0].toLowerCase().includes(q) ||
-      item[1].toLowerCase().includes(q) ||
-      item[2].toLowerCase().includes(q)
-    );
-
-    container.innerHTML=results.map(item=>`
-
-      <button
-        class="result"
-        style="width:100%;text-align:left;cursor:pointer"
-        onclick="openView('${item[1]}')"
-      >
-        <strong>${item[0]}</strong>
-        <div class="small muted">
-          Ouvrir la rubrique
-        </div>
-      </button>
-
-    `).join("");
-
-  }
-);
-
-
-/* =========================================================
-   MODE NUIT
-========================================================= */
-
-function toggleNight(){
-
-  document.body.classList.toggle("night");
-
-  localStorage.setItem(
-    "t3pNight",
-    document.body.classList.contains("night")
-      ? "1"
-      : "0"
-  );
-
-  showToast(
-    document.body.classList.contains("night")
-      ? "Mode nuit activé"
-      : "Mode jour activé"
-  );
-}
-
-if(localStorage.getItem("t3pNight")==="1"){
-  document.body.classList.add("night");
-}
-
-
-/* =========================================================
-   TAILLE TEXTE
-========================================================= */
-
-function toggleLargeText(){
-
-  document.body.classList.toggle("font-large");
-
-  localStorage.setItem(
-    "t3pLargeText",
-    document.body.classList.contains("font-large")
-      ? "1"
-      : "0"
-  );
-}
-
-if(localStorage.getItem("t3pLargeText")==="1"){
-  document.body.classList.add("font-large");
-}
-
-
-/* =========================================================
-   IMAGES
-========================================================= */
-
-function openImage(src,alt){
-
-  if(!src || src.includes("undefined")){
+  if(!q){
+    box.innerHTML="";
     return;
   }
 
-  document.getElementById("modal-image").src=src;
-  document.getElementById("modal-image").alt=alt || "";
+  const results=searchIndex.filter(x=>
+    (x.title+" "+x.terms)
+      .toLowerCase()
+      .includes(q)
+  );
 
-  document.getElementById("image-modal")
+  if(!results.length){
+    box.innerHTML=
+      '<div class="card muted">Aucun résultat.</div>';
+    return;
+  }
+
+  box.innerHTML=results.map(x=>`
+    <button class="menu-button"
+            onclick="openSection('${x.id}')">
+      🔎 ${x.title}
+      <span class="small muted">Ouvrir la rubrique</span>
+    </button>
+  `).join("");
+}
+
+
+/* =========================================================
+   CONTROLE RAPIDE
+========================================================= */
+
+let controlState={
+  type:null,
+  driverStatus:null,
+  statuses:{}
+};
+
+const checklistData={
+
+  taxi:[
+    {
+      id:"taxi_card",
+      title:"Carte professionnelle",
+      help:"Identité, numéro et validité.",
+      natinfs:[30763]
+    },
+    {
+      id:"taxi_aptitude",
+      title:"Attestation préfectorale d'aptitude physique",
+      help:"Document distinct de la carte professionnelle.",
+      natinfs:[22874]
+    },
+    {
+      id:"taxi_ads",
+      title:"ADS — Autorisation de stationnement",
+      help:"Existence et cohérence avec le véhicule.",
+      natinfs:[]
+    },
+    {
+      id:"taxi_insurance",
+      title:"Assurance",
+      help:"Couverture cohérente avec l'activité.",
+      natinfs:[]
+    },
+    {
+      id:"taxi_meter",
+      title:"Taximètre",
+      help:"Présence, fonctionnement et cohérence tarifaire.",
+      natinfs:[]
+    },
+    {
+      id:"taxi_metrology",
+      title:"Carnet métrologique",
+      help:"Vérifications et éléments métrologiques.",
+      natinfs:[]
+    },
+    {
+      id:"taxi_tariffs",
+      title:"Tarifs / positions A-B-C-D",
+      help:"Position adaptée à la course et tarifs applicables.",
+      natinfs:[2913]
+    },
+    {
+      id:"taxi_ticket",
+      title:"Ticket / note",
+      help:"Vérifier la remise lorsque requise ou demandée.",
+      natinfs:[]
+    },
+    {
+      id:"taxi_tpe",
+      title:"Terminal de paiement",
+      help:"Paiement par carte et affichage des prix.",
+      natinfs:[]
+    },
+    {
+      id:"taxi_forfait",
+      title:"Forfait",
+      help:"Uniquement lorsqu'autorisé par la réglementation tarifaire.",
+      natinfs:[2913]
+    },
+    {
+      id:"taxi_relay",
+      title:"Taxi relais",
+      help:"Documents et signalétique spécifiques.",
+      natinfs:[]
+    },
+    {
+      id:"taxi_maraude",
+      title:"Maraude / prise en charge",
+      help:"Respect du ressort et des règles applicables.",
+      natinfs:[]
+    }
+  ],
+
+  vtc:[
+    {
+      id:"vtc_card",
+      title:"Carte professionnelle VTC",
+      help:"Identité, numéro, validité et support sécurisé.",
+      natinfs:[30763]
+    },
+    {
+      id:"vtc_aptitude",
+      title:"Attestation préfectorale d'aptitude physique",
+      help:"Document distinct de la carte.",
+      natinfs:[22874]
+    },
+    {
+      id:"vtc_revtc",
+      title:"Inscription REVTC",
+      help:"Cohérence entre exploitant, numéro REVTC et véhicule.",
+      natinfs:[30756]
+    },
+    {
+      id:"vtc_vignette",
+      title:"Vignettes VTC avant / arrière",
+      help:"Numéro REVTC et immatriculation cohérents.",
+      natinfs:[30899]
+    },
+    {
+      id:"vtc_insurance",
+      title:"Assurance professionnelle",
+      help:"Transport de personnes à titre onéreux + cohérence exploitant.",
+      natinfs:[]
+    },
+    {
+      id:"vtc_status",
+      title:"Statut du conducteur",
+      help:"Exploitant, salarié ou autre : cohérence à vérifier.",
+      natinfs:[]
+    },
+    {
+      id:"vtc_reservation",
+      title:"Réservation préalable",
+      help:"Réservation avant prise en charge.",
+      natinfs:[30767]
+    },
+    {
+      id:"vtc_maraudage",
+      title:"Maraude / stationnement en quête de clients",
+      help:"Pas de recherche de clients dans la voie publique.",
+      natinfs:[30766]
+    },
+    {
+      id:"vtc_electronic",
+      title:"Maraude électronique",
+      help:"Disponibilité/localisation avant réservation.",
+      natinfs:[30769]
+    },
+    {
+      id:"vtc_return",
+      title:"Retour entre deux courses",
+      help:"Établissement ou lieu autorisé, sauf exception.",
+      natinfs:[]
+    },
+    {
+      id:"vtc_vehicle",
+      title:"Véhicule",
+      help:"Caractéristiques, ancienneté et contrôle technique.",
+      natinfs:[]
+    }
+  ],
+
+  loti:[
+    {
+      id:"loti_license",
+      title:"Licence de transport intérieur",
+      help:"Numéro, exploitant et validité.",
+      natinfs:[7608,11991]
+    },
+    {
+      id:"loti_copy",
+      title:"Copie conforme à bord",
+      help:"Numérotée et cohérente avec le véhicule.",
+      natinfs:[27777]
+    },
+    {
+      id:"loti_vignette",
+      title:"Vignette LOTI violette",
+      help:"Avant/arrière et numéro cohérent.",
+      natinfs:[30760]
+    },
+    {
+      id:"loti_aptitude",
+      title:"Attestation préfectorale d'aptitude physique",
+      help:"Document distinct.",
+      natinfs:[22874]
+    },
+    {
+      id:"loti_insurance",
+      title:"Assurance transport rémunéré",
+      help:"Cohérente avec l'exploitant titulaire du titre.",
+      natinfs:[]
+    },
+    {
+      id:"loti_siren",
+      title:"SIREN / exploitant",
+      help:"À recouper avec le registre en cas de doute.",
+      natinfs:[496,11991]
+    },
+    {
+      id:"loti_ticket",
+      title:"Billet collectif",
+      help:"Présence et cohérence du service de groupe.",
+      natinfs:[]
+    },
+    {
+      id:"loti_group",
+      title:"Groupe constitué avant le départ",
+      help:"Interroger les passagers séparément lorsque possible.",
+      natinfs:[]
+    },
+    {
+      id:"loti_capacity",
+      title:"Capacité du véhicule",
+      help:"Attention aux règles applicables en agglomération >100 000 habitants.",
+      natinfs:[]
+    },
+    {
+      id:"loti_reservation",
+      title:"Réservation / absence de maraude",
+      help:"Une prise en charge individuelle peut révéler une maraude déguisée.",
+      natinfs:[30775,30767]
+    }
+  ],
+
+  vmdtr:[
+    {
+      id:"vmdtr_card",
+      title:"Carte professionnelle",
+      help:"Identité, numéro et validité.",
+      natinfs:[28156]
+    },
+    {
+      id:"vmdtr_aptitude",
+      title:"Attestation préfectorale d'aptitude physique",
+      help:"Document obligatoire pour le VMDTR.",
+      natinfs:[28159]
+    },
+    {
+      id:"vmdtr_vignette",
+      title:"Vignette bleue",
+      help:"Signalétique VMDTR.",
+      natinfs:[]
+    },
+    {
+      id:"vmdtr_reservation",
+      title:"Réservation préalable",
+      help:"Avant la prise en charge.",
+      natinfs:[]
+    },
+    {
+      id:"vmdtr_insurance",
+      title:"RC Pro + assurance véhicule",
+      help:"Transport de personnes à titre onéreux.",
+      natinfs:[]
+    },
+    {
+      id:"vmdtr_vehicle",
+      title:"Caractéristiques du deux/trois-roues",
+      help:"Âge, puissance, équipements et entretien.",
+      natinfs:[]
+    },
+    {
+      id:"vmdtr_passenger",
+      title:"Nombre de passagers",
+      help:"Un seul passager à la fois.",
+      natinfs:[]
+    }
+  ]
+
+};
+
+function startControl(type=null){
+
+  resetControlStateOnly();
+
+  openSection("control");
+
+  document.getElementById("controlStep1")
     .classList.add("active");
+
+  document.getElementById("controlStep2")
+    .classList.remove("active");
+
+  document.getElementById("controlStep3")
+    .classList.remove("active");
+
+  if(type){
+    controlState.type=type;
+
+    const buttons=
+      document.querySelectorAll(".type-choice button");
+
+    buttons.forEach(btn=>{
+      btn.classList.remove("selected");
+    });
+
+    const target=[...buttons].find(btn=>
+      btn.textContent.toLowerCase().includes(type)
+    );
+
+    if(target){
+      target.classList.add("selected");
+    }
+
+    updateDriverStatusBox();
+  }
+}
+
+function resetControlStateOnly(){
+
+  controlState={
+    type:null,
+    driverStatus:null,
+    statuses:{}
+  };
+}
+
+function resetControl(){
+
+  resetControlStateOnly();
+
+  document.getElementById("controlStep1")
+    .classList.add("active");
+
+  document.getElementById("controlStep2")
+    .classList.remove("active");
+
+  document.getElementById("controlStep3")
+    .classList.remove("active");
+
+  document.querySelectorAll(".type-choice button")
+    .forEach(btn=>btn.classList.remove("selected"));
+
+  window.scrollTo(0,0);
+}
+
+function chooseType(type,button){
+
+  controlState.type=type;
+
+  document.querySelectorAll(".type-choice button")
+    .forEach(btn=>btn.classList.remove("selected"));
+
+  button.classList.add("selected");
+
+  updateDriverStatusBox();
+}
+
+function updateDriverStatusBox(){
+
+  const box=document.getElementById("driverStatusBox");
+
+  if(!box) return;
+
+  if(controlState.type==="vtc" ||
+     controlState.type==="loti"){
+
+    box.style.display="block";
+
+  }else{
+
+    box.style.display="none";
+    controlState.driverStatus=null;
+  }
+}
+
+function updateDriverStatus(){
+
+  const value=
+    document.getElementById("driverStatus").value;
+
+  controlState.driverStatus=value;
+
+  const info=
+    document.getElementById("driverStatusInfo");
+
+  if(value==="salarie"){
+
+    info.style.display="block";
+
+    info.innerHTML=
+      "<b>Conducteur salarié :</b><br>" +
+      "Vérifier le lien avec l'exploitant : contrat, " +
+      "bulletin de salaire, attestation ou autre justificatif " +
+      "cohérent. Ne pas déduire automatiquement une infraction " +
+      "du seul fait que la carte grise est au nom du conducteur.";
+
+  }else if(value==="exploitant"){
+
+    info.style.display="block";
+
+    info.innerHTML=
+      "<b>Exploitant :</b><br>" +
+      "Vérifier la cohérence entre le conducteur, l'exploitant " +
+      "et les titres présentés.";
+
+  }else if(value==="autre"){
+
+    info.style.display="block";
+
+    info.innerHTML=
+      "<b>Autre / à vérifier :</b><br>" +
+      "Décrire précisément le statut déclaré et les justificatifs " +
+      "présentés. Ne pas qualifier automatiquement.";
+
+  }else{
+
+    info.style.display="none";
+  }
+}
+
+function goToChecklist(){
+
+  if(!controlState.type){
+
+    alert("Sélectionnez le statut du véhicule.");
+
+    return;
+  }
+
+  document.getElementById("controlStep1")
+    .classList.remove("active");
+
+  document.getElementById("controlStep2")
+    .classList.add("active");
+
+  document.getElementById("controlStep3")
+    .classList.remove("active");
+
+  renderChecklist();
+
+  window.scrollTo({
+    top:0,
+    behavior:"instant"
+  });
+}
+
+function renderChecklist(){
+
+  const data=
+    checklistData[controlState.type] || [];
+
+  const title={
+    taxi:"🚕 Contrôle Taxi",
+    vtc:"🚘 Contrôle VTC",
+    loti:"🚌 Contrôle LOTI",
+    vmdtr:"🏍️ Contrôle VMDTR"
+  }[controlState.type];
+
+  document.getElementById("controlTitle")
+    .textContent=title;
+
+  const box=document.getElementById("checklist");
+
+  box.innerHTML=data.map(item=>`
+
+    <div class="check-item"
+         id="item-${item.id}">
+
+      <div class="item-title">
+        ${item.title}
+      </div>
+
+      <div class="item-help">
+        ${item.help}
+      </div>
+
+      <div class="status-row">
+
+        <button class="status-btn"
+          onclick="setStatus('${item.id}','conforme',this)">
+          ✓ Conforme
+        </button>
+
+        <button class="status-btn"
+          onclick="setStatus('${item.id}','nonconforme',this)">
+          ✕ Non conforme
+        </button>
+
+        <button class="status-btn"
+          onclick="setStatus('${item.id}','nonpresente',this)">
+          ! Non présenté
+        </button>
+
+        <button class="status-btn"
+          onclick="setStatus('${item.id}','na',this)">
+          — N/A
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join("");
+
+  updateProgress();
+}
+
+function setStatus(id,status,button){
+
+  controlState.statuses[id]=status;
+
+  const parent=button.closest(".check-item");
+
+  parent.classList.remove(
+    "has-status-conforme",
+    "has-status-nonconforme",
+    "has-status-nonpresente",
+    "has-status-na"
+  );
+
+  parent.classList.add(
+    "has-status-"+status
+  );
+
+  parent.querySelectorAll(".status-btn")
+    .forEach(btn=>{
+      btn.classList.remove(
+        "selected",
+        "conforme",
+        "nonconforme",
+        "nonpresente",
+        "na"
+      );
+    });
+
+  button.classList.add(
+    "selected",
+    status
+  );
+
+  /*
+    Le bouton sélectionné change réellement de couleur :
+    impossible de se demander si le clic a été enregistré.
+  */
+
+  updateProgress();
+}
+
+function updateProgress(){
+
+  const data=
+    checklistData[controlState.type] || [];
+
+  const total=data.length;
+
+  const done=Object.keys(controlState.statuses)
+    .filter(id=>
+      controlState.statuses[id]
+    ).length;
+
+  const percent=
+    total ? (done/total)*100 : 0;
+
+  const bar=
+    document.getElementById("progressBar");
+
+  if(bar){
+    bar.style.width=percent+"%";
+  }
+}
+
+
+/* =========================================================
+   ANALYSE NATINF
+========================================================= */
+
+const natinfs=[
+
+  {
+    code:"22874",
+    professions:"Taxi / VTC / LOTI",
+    title:"Conduite sans attestation préfectorale d'aptitude physique",
+    nature:"Contravention",
+    ref:"R.221-10, R.221-1 C. route ; R.3120-1 C. transports"
+  },
+
+  {
+    code:"28159",
+    professions:"VMDTR",
+    title:"Conduite d'un véhicule motorisé à deux ou trois roues utilisé pour le transport à titre onéreux sans attestation préfectorale d'aptitude physique",
+    nature:"Contravention",
+    ref:"R.221-10 C. route ; R.3120-1 C. transports"
+  },
+
+  {
+    code:"28156",
+    professions:"VMDTR",
+    title:"Non-présentation immédiate de la carte professionnelle",
+    nature:"Contravention",
+    ref:"R.3124-12, R.3120-1 C. transports"
+  },
+
+  {
+    code:"30763",
+    professions:"T3P",
+    title:"Non-présentation immédiate de la carte professionnelle",
+    nature:"Contravention",
+    ref:"Code des transports — à confirmer selon les faits"
+  },
+
+  {
+    code:"30760",
+    professions:"T3P / LOTI",
+    title:"Carte / signalétique professionnelle non apposée ou non visible selon le régime applicable",
+    nature:"Contravention",
+    ref:"R.3124-12, R.3120-1 C. transports"
+  },
+
+  {
+    code:"27746",
+    professions:"VTC",
+    title:"Conduite d'un VTC sans attestation préfectorale d'aptitude physique",
+    nature:"Contravention",
+    ref:"Manuel — vérifier la base NATINF en vigueur"
+  },
+
+  {
+    code:"27777",
+    professions:"LOTI",
+    title:"Transport public routier de personnes sans copie conforme du titre administratif de transport à bord",
+    nature:"Contravention",
+    ref:"R.3411-5 / R.3452-44 C. transports"
+  },
+
+  {
+    code:"7608",
+    professions:"LOTI",
+    title:"Utilisation d'une licence, copie conforme ou autorisation de transport routier périmée, suspendue ou déclarée perdue",
+    nature:"Délit",
+    ref:"L.3452-6 C. transports"
+  },
+
+  {
+    code:"11991",
+    professions:"LOTI",
+    title:"Exercice de l'activité de transporteur public routier de personnes sans inscription au registre",
+    nature:"Délit",
+    ref:"Code des transports — à confirmer"
+  },
+
+  {
+    code:"496",
+    professions:"Taxi / VTC / LOTI",
+    title:"Usage de faux document administratif",
+    nature:"Délit",
+    ref:"Article 441-1 du code pénal"
+  },
+
+  {
+    code:"30775",
+    professions:"LOTI",
+    title:"Arrêt ou stationnement en quête de clients",
+    nature:"Contravention",
+    ref:"L.3120-2, L.3120-1 C. transports"
+  },
+
+  {
+    code:"30766",
+    professions:"VTC",
+    title:"Arrêt ou stationnement en quête de clients",
+    nature:"Contravention",
+    ref:"Code des transports — à confirmer selon les faits"
+  },
+
+  {
+    code:"30767",
+    professions:"VTC / LOTI",
+    title:"Prise en charge sans réservation préalable",
+    nature:"Contravention",
+    ref:"Code des transports — à confirmer selon les faits"
+  },
+
+  {
+    code:"30769",
+    professions:"VTC",
+    title:"Maraude électronique / irrégularité liée à l'affichage de disponibilité ou de localisation",
+    nature:"Contravention",
+    ref:"Code des transports — à confirmer selon les faits"
+  },
+
+  {
+    code:"30756",
+    professions:"VTC",
+    title:"Exploitation d'un VTC sans inscription au REVTC",
+    nature:"À qualifier",
+    ref:"Code des transports — à confirmer selon les faits"
+  },
+
+  {
+    code:"30899",
+    professions:"VTC",
+    title:"Absence de vignette réglementaire sur le véhicule",
+    nature:"Contravention",
+    ref:"Code des transports — à confirmer selon les faits"
+  },
+
+  {
+    code:"2913",
+    professions:"Taxi",
+    title:"Non-respect des règles tarifaires du taxi",
+    nature:"Contravention de 5e classe",
+    ref:"Réglementation tarifaire applicable"
+  }
+
+];
+
+function renderNatinf(query=""){
+
+  const q=query.toLowerCase().trim();
+
+  const results=natinfs.filter(n=>{
+
+    const text=
+      `${n.code} ${n.professions} ${n.title} ${n.ref}`
+      .toLowerCase();
+
+    return !q || text.includes(q);
+
+  });
+
+  document.getElementById("natinfList").innerHTML=
+    results.map(n=>`
+
+      <div class="natinf-item">
+
+        <div class="natinf-code">
+          NATINF ${n.code}
+        </div>
+
+        <span class="badge">${n.professions}</span>
+        <span class="badge">${n.nature}</span>
+
+        <p>
+          <b>${n.title}</b>
+        </p>
+
+        <p class="muted small">
+          ${n.ref}
+        </p>
+
+        <p class="muted small">
+          ⚠️ Vérifier l'intitulé et la qualification dans la
+          base NATINF en vigueur avant verbalisation.
+        </p>
+
+      </div>
+
+    `).join("");
+
+}
+
+function analyzeControl(){
+
+  const data=
+    checklistData[controlState.type] || [];
+
+  const problems=[];
+
+  data.forEach(item=>{
+
+    const status=
+      controlState.statuses[item.id];
+
+    if(status==="nonconforme" ||
+       status==="nonpresente"){
+
+      problems.push({
+        item,
+        status
+      });
+
+    }
+
+  });
+
+  const natinfsFound=[];
+
+  problems.forEach(problem=>{
+
+    problem.item.natinfs.forEach(code=>{
+
+      if(!natinfsFound.includes(code)){
+        natinfsFound.push(code);
+      }
+
+    });
+
+  });
+
+  let html="";
+
+  if(!problems.length){
+
+    html+=`
+      <div class="notice success">
+        <b>✓ Aucune anomalie sélectionnée.</b><br>
+        Aucun élément n'a été marqué « Non conforme » ou
+        « Non présenté ».
+      </div>
+    `;
+
+  }else{
+
+    html+=`
+      <div class="notice danger">
+        <b>⚠ ${problems.length} élément(s) à examiner.</b><br>
+        L'application indique des qualifications possibles.
+        Elle ne remplace pas l'analyse juridique des faits.
+      </div>
+    `;
+
+    problems.forEach(p=>{
+
+      html+=`
+        <div class="infra">
+          <strong>
+            ${p.item.title}
+          </strong>
+
+          <span class="badge">
+            ${p.status==="nonpresente"
+              ? "Non présenté"
+              : "Non conforme"}
+          </span>
+
+          ${
+            p.item.natinfs.length
+              ? `<p class="small">
+                   NATINF possible :
+                   ${p.item.natinfs.map(x=>`<b>${x}</b>`).join(", ")}
+                 </p>`
+              : `<p class="muted small">
+                   Aucun NATINF automatique associé :
+                   qualification à déterminer selon les faits.
+                 </p>`
+          }
+
+        </div>
+      `;
+
+    });
+
+  }
+
+  if(natinfsFound.length){
+
+    html+=`
+      <hr>
+      <h3>NATINF possibles</h3>
+    `;
+
+    natinfsFound.forEach(code=>{
+
+      const n=
+        natinfs.find(x=>x.code===String(code));
+
+      if(n){
+
+        html+=`
+          <div class="natinf-item">
+
+            <div class="natinf-code">
+              NATINF ${n.code}
+            </div>
+
+            <p>
+              <b>${n.title}</b>
+            </p>
+
+            <p class="muted small">
+              ${n.professions} · ${n.nature}
+            </p>
+
+            <p class="muted small">
+              ${n.ref}
+            </p>
+
+            <p class="small">
+              ⚠️ À confirmer dans la base NATINF en vigueur
+              avant procédure.
+            </p>
+
+          </div>
+        `;
+
+      }
+
+    });
+
+  }
+
+  html+=`
+    <div class="notice">
+      <b>Rappel rédactionnel</b><br>
+      Décrire d'abord les faits constatés, les documents présentés
+      ou non présentés, les déclarations et les vérifications effectuées.
+      Ne pas qualifier un document de faux avant confirmation.
+    </div>
+  `;
+
+  document.getElementById("controlResult")
+    .innerHTML=html;
+
+  document.getElementById("controlStep2")
+    .classList.remove("active");
+
+  document.getElementById("controlStep3")
+    .classList.add("active");
+
+  window.scrollTo({
+    top:0,
+    behavior:"instant"
+  });
+
+}
+
+
+/* =========================================================
+   DOCUMENTS / ANNEXE J
+========================================================= */
+
+const documents=[
+
+  {
+    id:"taxi_card",
+    title:"J.1 — Carte professionnelle Taxi",
+    image:"images/taxi_carte.jpg",
+    points:[
+      "Photographie et identité",
+      "Numéro de carte",
+      "Validité",
+      "Identification préfectorale"
+    ]
+  },
+
+  {
+    id:"vtc_card",
+    title:"J.2 — Carte professionnelle VTC",
+    image:"images/vtc_carte.jpg",
+    points:[
+      "Carte sécurisée",
+      "Identité",
+      "Numéro",
+      "Validité 5 ans",
+      "Ancien modèle papier à signaler"
+    ]
+  },
+
+  {
+    id:"vtc_vignette",
+    title:"J.3 — Vignette VTC",
+    image:"images/vtc_vignette.jpg",
+    points:[
+      "Vignette rouge",
+      "Avant et arrière",
+      "Numéro REVTC",
+      "Immatriculation"
+    ]
+  },
+
+  {
+    id:"loti_vignette",
+    title:"J.4 — Vignette LOTI violette",
+    image:"images/loti_vignette.jpg",
+    points:[
+      "Couleur violette",
+      "Avant et arrière",
+      "Numéro de licence",
+      "Cohérence avec le véhicule"
+    ]
+  },
+
+  {
+    id:"aptitude",
+    title:"J.5 — Attestation préfectorale d'aptitude physique",
+    image:"images/attestation_aptitude.jpg",
+    points:[
+      "Identité",
+      "Date et durée de validité",
+      "Préfecture",
+      "Ne pas confondre avec la carte professionnelle"
+    ]
+  },
+
+  {
+    id:"loti_copy",
+    title:"J.6 — Copie conforme LOTI",
+    image:"images/loti_copie_conforme.jpg",
+    points:[
+      "Numéro de licence",
+      "Exploitant",
+      "Véhicule",
+      "Cohérence avec la vignette"
+    ]
+  },
+
+  {
+    id:"taxi_ticket",
+    title:"J.7 — Ticket / note Taxi",
+    image:"images/taxi_ticket.jpg",
+    points:[
+      "Date",
+      "Prix",
+      "Immatriculation / licence",
+      "Informations réglementaires"
+    ]
+  },
+
+  {
+    id:"vtc_order",
+    title:"J.8 — Bon de commande VTC",
+    image:"images/vtc_bon_commande.jpg",
+    points:[
+      "Client",
+      "Date / heure",
+      "Lieu de prise en charge",
+      "Éléments de réservation"
+    ]
+  },
+
+  {
+    id:"loti_ticket",
+    title:"J.9 — Billet collectif LOTI",
+    image:"images/loti_billet_collectif.jpg",
+    points:[
+      "Groupe",
+      "Date",
+      "Trajet / prestation",
+      "Cohérence avec le service"
+    ]
+  },
+
+  {
+    id:"taxi_ads",
+    title:"J.10 — ADS Taxi",
+    image:"images/taxi_ads.jpg",
+    points:[
+      "Numéro",
+      "Commune",
+      "Véhicule",
+      "Cohérence de l'autorisation"
+    ]
+  },
+
+  {
+    id:"vmdtr_card",
+    title:"J.11 — Carte professionnelle VMDTR",
+    image:"images/vmdtr_carte.jpg",
+    points:[
+      "Identité",
+      "Numéro",
+      "Validité"
+    ]
+  },
+
+  {
+    id:"vmdtr_vignette",
+    title:"J.12 — Vignette bleue VMDTR",
+    image:"images/vmdtr_vignette.jpg",
+    points:[
+      "Couleur bleue",
+      "Signalétique spécifique",
+      "Cohérence avec le véhicule"
+    ]
+  }
+
+];
+
+function renderDocuments(){
+
+  const box=document.getElementById("documentsList");
+
+  box.innerHTML=documents.map(doc=>`
+
+    <div class="document-card">
+
+      <h3>${doc.title}</h3>
+
+      <img
+        src="${doc.image}"
+        alt="${doc.title}"
+        loading="lazy"
+        onclick="openImage('${doc.image}','${escapeHtml(doc.title)}')"
+        onerror="this.classList.add('missing');this.alt='Image à placer : ${doc.image}'"
+      >
+
+      <button class="secondary"
+              onclick="openImage('${doc.image}','${escapeHtml(doc.title)}')">
+        🔍 Agrandir
+      </button>
+
+      <p>
+        <b>Points à vérifier</b>
+      </p>
+
+      <ul>
+        ${doc.points.map(p=>`<li>${p}</li>`).join("")}
+      </ul>
+
+      <button
+        class="secondary"
+        onclick="toggleFavorite('${doc.id}')">
+        ⭐ ${favorites.includes(doc.id)
+          ? "Retirer des favoris"
+          : "Ajouter aux favoris"}
+      </button>
+
+    </div>
+
+  `).join("");
+
+}
+
+function escapeHtml(text){
+
+  return text
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================================
+   MODAL / ZOOM
+========================================================= */
+
+let currentZoom=1;
+
+function openImage(src,title){
+
+  const modal=document.getElementById("imageModal");
+  const img=document.getElementById("modalImage");
+
+  img.src=src;
+  img.alt=title;
+
+  currentZoom=1;
+  img.style.transform=
+    `scale(${currentZoom})`;
+
+  modal.classList.add("active");
+
+  document.body.style.overflow="hidden";
 }
 
 function closeImage(event){
 
-  if(
-    event &&
-    event.target &&
-    event.target.id==="modal-image"
-  ){
+  if(event &&
+     event.target !== event.currentTarget &&
+     !event.target.classList.contains("modal-close")){
     return;
   }
 
-  document.getElementById("image-modal")
+  document.getElementById("imageModal")
     .classList.remove("active");
+
+  document.body.style.overflow="";
 }
 
-function imageFallback(img){
+function zoomImage(delta){
 
-  img.style.display="none";
+  currentZoom=Math.max(
+    .5,
+    Math.min(3,currentZoom+delta)
+  );
 
-  const parent=img.parentElement;
+  document.getElementById("modalImage")
+    .style.transform=
+      `scale(${currentZoom})`;
+}
 
-  if(parent.querySelector(".image-unavailable")){
-    return;
+function resetZoom(){
+
+  currentZoom=1;
+
+  document.getElementById("modalImage")
+    .style.transform="scale(1)";
+}
+
+
+/* =========================================================
+   REDACTION
+========================================================= */
+
+function copyReport(){
+
+  const text=
+    document.getElementById("reportText").value;
+
+  navigator.clipboard.writeText(text)
+    .then(()=>{
+      alert("Rapport copié.");
+    })
+    .catch(()=>{
+      alert("Sélectionnez puis copiez le texte manuellement.");
+    });
+
+}
+
+
+/* =========================================================
+   SWIPE / RETOUR SIMPLE
+========================================================= */
+
+let touchStartX=0;
+
+document.addEventListener("touchstart",e=>{
+  touchStartX=e.changedTouches[0].screenX;
+},{
+  passive:true
+});
+
+document.addEventListener("touchend",e=>{
+
+  const touchEndX=
+    e.changedTouches[0].screenX;
+
+  const diff=
+    touchEndX-touchStartX;
+
+  /*
+    Swipe vers la droite :
+    retour accueil uniquement lorsqu'une vue secondaire
+    est ouverte.
+  */
+
+  if(diff>100){
+
+    const active=
+      document.querySelector(".view.active");
+
+    if(active && active.id!=="home"){
+      goHome();
+    }
+
   }
 
-  const message=document.createElement("div");
-
-  message.className="image-unavailable";
-
-  message.style.padding="35px 15px";
-  message.style.textAlign="center";
-  message.style.background="#eef1f4";
-  message.style.color="#687480";
-
-  message.innerHTML=
-    "Image à insérer depuis l'annexe J du manuel.";
-
-  parent.insertBefore(message,img);
-}
+},{
+  passive:true
+});
 
 
 /* =========================================================
-   TOAST
+   SERVICE WORKER OPTIONNEL
 ========================================================= */
 
-let toastTimer;
+if(
+  "serviceWorker" in navigator &&
+  location.protocol !== "file:"
+){
 
-function showToast(message){
+  window.addEventListener("load",()=>{
 
-  const toast=document.getElementById("toast");
+    navigator.serviceWorker
+      .register("sw.js")
+      .catch(()=>{
+        /*
+          Le service worker est optionnel.
+          L'application continue de fonctionner sans lui.
+        */
+      });
 
-  toast.textContent=message;
-  toast.classList.add("show");
+  });
 
-  clearTimeout(toastTimer);
-
-  toastTimer=setTimeout(()=>{
-    toast.classList.remove("show");
-  },2200);
-}
-
-
-/* =========================================================
-   INITIALISATION
-========================================================= */
-
-renderNatinf();
-updateFavoriteButtons();
-renderFavorites();
-
-const initialHash=location.hash.replace("#","");
-
-if(initialHash && document.getElementById(initialHash)){
-  openView(initialHash);
-}else{
-  openView("home");
 }
 
 </script>
